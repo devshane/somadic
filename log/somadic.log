@@ -1,0 +1,320 @@
+# Logfile created on 2014-08-19 23:18:28 -0400 by logger.rb/44203
+[DEBUG] 2014-08-19 23:18:28 -0400: test debug
+[DEBUG] 2014-08-19 23:18:38 -0400: test debug
+[DEBUG] 2014-08-19 23:18:56 -0400: test debug
+[INFO] 2014-08-19 23:18:56 -0400: test info
+[DEBUG] 2014-08-19 23:19:01 -0400: test debug
+[INFO] 2014-08-19 23:19:01 -0400: test info
+[ERROR] 2014-08-19 23:19:01 -0400: test info
+[DEBUG] 2014-08-19 23:19:03 -0400: test debug
+[INFO] 2014-08-19 23:19:03 -0400: test info
+[ERROR] 2014-08-19 23:19:03 -0400: test info
+[DEBUG] 2014-08-19 23:19:49 -0400: test debug
+[INFO] 2014-08-19 23:19:49 -0400: test info
+[ERROR] 2014-08-19 23:19:49 -0400: test info
+[DEBUG] 2014-08-19 23:20:04 -0400: test debug
+[INFO] 2014-08-19 23:20:04 -0400: test info
+[ERROR] 2014-08-19 23:20:04 -0400: test info
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: popen mplayer -cache 128 -cache-min 20 -playlist http://listen.di.fm/public3/breaks.pls
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Resolving listen.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Resolving listen.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Connecting to server listen.di.fm[70.42.73.56]: 80...
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line MPlayer 1.1-4.8 (C) 2000-2012 MPlayer Team
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Playing http://pub3.di.fm:80/di_breaks.
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Resolving pub3.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Resolving pub3.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Connecting to server pub3.di.fm[70.42.73.188]: 80...
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Name   : Breaks - DIGITALLY IMPORTED - a fine assortment of trance and house breaks
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Genre  : Electronic Breaks Trance
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Website: http://www.di.fm/breaks
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Public : no
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Bitrate: 96kbit/s
+[DEBUG] 2014-08-19 23:20:39 -0400: Mplayer#start: got line Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line ICY Info: StreamTitle='Morning Coffee Vol 5 - mixed by Alex Levin';StreamUrl='';
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line Audio only file format detected.
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line ==========================================================================
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line Trying to force audio codec driver family mp3lib...
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line Opening audio decoder: [mp3lib] MPEG layer-2, layer-3
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line AUDIO: 44100 Hz, 2 ch, s16le, 96.0 kbit/6.80% (ratio: 12000->176400)
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line Selected audio codec: [mp3] afm: mp3lib (mp3lib MPEG layer-2, layer-3)
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line ==========================================================================
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line AO: [pulse] 44100Hz 2ch s16le (2 bytes per sample)
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line Video: no video
+[DEBUG] 2014-08-19 23:20:41 -0400: Mplayer#start: got line Starting playback...
+[DEBUG] 2014-08-19 23:21:13 -0400: Mplayer#start: popen mplayer -cache 128 -cache-min 20 -playlist http://listen.di.fm/public3/breaks.pls
+[DEBUG] 2014-08-19 23:21:13 -0400: Mplayer#start: got line Resolving listen.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:21:13 -0400: Mplayer#start: got line Resolving listen.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:21:13 -0400: Mplayer#start: got line Connecting to server listen.di.fm[70.42.73.56]: 80...
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line MPlayer 1.1-4.8 (C) 2000-2012 MPlayer Team
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line Playing http://pub3.di.fm:80/di_breaks.
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line Resolving pub3.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line Resolving pub3.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line Connecting to server pub3.di.fm[70.42.73.188]: 80...
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line Name   : Breaks - DIGITALLY IMPORTED - a fine assortment of trance and house breaks
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line Genre  : Electronic Breaks Trance
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line Website: http://www.di.fm/breaks
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line Public : no
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line Bitrate: 96kbit/s
+[DEBUG] 2014-08-19 23:21:14 -0400: Mplayer#start: got line Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:21:15 -0400: Mplayer#start: got line Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   
+[DEBUG] 2014-08-19 23:21:15 -0400: Mplayer#start: got line ICY Info: StreamTitle='Morning Coffee Vol 5 - mixed by Alex Levin';StreamUrl='';
+[DEBUG] 2014-08-19 23:21:16 -0400: Mplayer#start: got line Cache fill:  6.25% (8192 bytes)   Cache fill: 18.75% (24576 bytes)   
+[DEBUG] 2014-08-19 23:21:16 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:21:16 -0400: Mplayer#start: got line Audio only file format detected.
+[DEBUG] 2014-08-19 23:21:16 -0400: Mplayer#start: got line ==========================================================================
+[DEBUG] 2014-08-19 23:21:16 -0400: Mplayer#start: got line Trying to force audio codec driver family mp3lib...
+[DEBUG] 2014-08-19 23:21:16 -0400: Mplayer#start: got line Opening audio decoder: [mp3lib] MPEG layer-2, layer-3
+[DEBUG] 2014-08-19 23:21:16 -0400: Mplayer#start: got line AUDIO: 44100 Hz, 2 ch, s16le, 96.0 kbit/6.80% (ratio: 12000->176400)
+[DEBUG] 2014-08-19 23:21:16 -0400: Mplayer#start: got line Selected audio codec: [mp3] afm: mp3lib (mp3lib MPEG layer-2, layer-3)
+[DEBUG] 2014-08-19 23:21:16 -0400: Mplayer#start: got line ==========================================================================
+[DEBUG] 2014-08-19 23:21:16 -0400: Mplayer#start: got line AO: [pulse] 44100Hz 2ch s16le (2 bytes per sample)
+[DEBUG] 2014-08-19 23:21:16 -0400: Mplayer#start: got line Video: no video
+[DEBUG] 2014-08-19 23:21:16 -0400: Mplayer#start: got line Starting playback...
+[DEBUG] 2014-08-19 23:21:18 -0400: Mplayer#stop
+[DEBUG] 2014-08-19 23:21:35 -0400: Mplayer#start: popen mplayer -cache 128 -cache-min 20 -playlist http://listen.di.fm/public3/breaks.pls
+[DEBUG] 2014-08-19 23:21:35 -0400: Mplayer#start: got line Resolving listen.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:21:35 -0400: Mplayer#start: got line Resolving listen.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:21:35 -0400: Mplayer#start: got line Connecting to server listen.di.fm[70.42.73.56]: 80...
+[DEBUG] 2014-08-19 23:21:35 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:21:35 -0400: Mplayer#start: got line Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:21:35 -0400: Mplayer#start: got line MPlayer 1.1-4.8 (C) 2000-2012 MPlayer Team
+[DEBUG] 2014-08-19 23:21:35 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:21:35 -0400: Mplayer#start: got line Playing http://pub3.di.fm:80/di_breaks.
+[DEBUG] 2014-08-19 23:21:35 -0400: Mplayer#start: got line Resolving pub3.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:21:35 -0400: Mplayer#start: got line Resolving pub3.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:21:35 -0400: Mplayer#start: got line Connecting to server pub3.di.fm[70.42.73.188]: 80...
+[DEBUG] 2014-08-19 23:21:36 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:21:36 -0400: Mplayer#start: got line Name   : Breaks - DIGITALLY IMPORTED - a fine assortment of trance and house breaks
+[DEBUG] 2014-08-19 23:21:36 -0400: Mplayer#start: got line Genre  : Electronic Breaks Trance
+[DEBUG] 2014-08-19 23:21:36 -0400: Mplayer#start: got line Website: http://www.di.fm/breaks
+[DEBUG] 2014-08-19 23:21:36 -0400: Mplayer#start: got line Public : no
+[DEBUG] 2014-08-19 23:21:36 -0400: Mplayer#start: got line Bitrate: 96kbit/s
+[DEBUG] 2014-08-19 23:21:36 -0400: Mplayer#start: got line Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line ICY Info: StreamTitle='Morning Coffee Vol 5 - mixed by Alex Levin';StreamUrl='';
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line Cache fill:  6.25% (8192 bytes)   
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line Audio only file format detected.
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line ==========================================================================
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line Trying to force audio codec driver family mp3lib...
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line Opening audio decoder: [mp3lib] MPEG layer-2, layer-3
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line AUDIO: 44100 Hz, 2 ch, s16le, 96.0 kbit/6.80% (ratio: 12000->176400)
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line Selected audio codec: [mp3] afm: mp3lib (mp3lib MPEG layer-2, layer-3)
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line ==========================================================================
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line AO: [pulse] 44100Hz 2ch s16le (2 bytes per sample)
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line Video: no video
+[DEBUG] 2014-08-19 23:21:38 -0400: Mplayer#start: got line Starting playback...
+[DEBUG] 2014-08-19 23:21:40 -0400: Mplayer#stop
+[DEBUG] 2014-08-19 23:21:40 -0400: Mplayer#stop: sending SIGTERM to pid 888
+[DEBUG] 2014-08-19 23:21:40 -0400: Mplayer#stop: sending SIGTERM to pid 920
+[DEBUG] 2014-08-19 23:21:40 -0400: Mplayer#start: got line A:   0.1 (00.0) of 0.0 (unknown) ??,?% 46% [JA:   0.1 (00.1) of 0.0 (unknown) ??,?% 43% [JA:   0.2 (00.2) of 0.0 (unknown)  0.4% 75% [JA:   0.4 (00.4) of 0.0 (unknown)  0.4% 85% [JA:   0.6 (00.6) of 0.0 (unknown)  0.4% 82% [JA:   0.7 (00.7) of 0.0 (unknown)  0.4% 82% [JA:   0.9 (00.9) of 0.0 (unknown)  0.4% 81% [JA:   1.1 (01.1) of 0.0 (unknown)  0.4% 78% [JA:   1.3 (01.2) of 0.0 (unknown)  0.4% 76% [JA:   1.5 (01.4) of 0.0 (unknown)  0.4% 75% [JA:   1.7 (01.6) of 0.0 (unknown)  0.4% 73% [JA:   1.8 (01.8) of 0.0 (unknown)  0.4% 71% [J
+[DEBUG] 2014-08-19 23:21:40 -0400: Mplayer#start: got line 
+[DEBUG] 2014-08-19 23:21:40 -0400: Mplayer#start: got line Exiting... (Quit)
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: popen mplayer -cache 128 -cache-min 20 -playlist http://listen.di.fm/public3/breaks.pls
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Resolving listen.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Resolving listen.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Connecting to server listen.di.fm[70.42.73.56]: 80...
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received 
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received MPlayer 1.1-4.8 (C) 2000-2012 MPlayer Team
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received 
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Playing http://pub3.di.fm:80/di_breaks.
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Resolving pub3.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Resolving pub3.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Connecting to server pub3.di.fm[70.42.73.188]: 80...
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received 
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Name   : Breaks - DIGITALLY IMPORTED - a fine assortment of trance and house breaks
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Genre  : Electronic Breaks Trance
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Website: http://www.di.fm/breaks
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Public : no
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Bitrate: 96kbit/s
+[DEBUG] 2014-08-19 23:21:55 -0400: Mplayer#start: received Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received ICY Info: StreamTitle='Morning Coffee Vol 5 - mixed by Alex Levin';StreamUrl='';
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received Cache fill: 18.75% (24576 bytes)   
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received 
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received Audio only file format detected.
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received ==========================================================================
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received Trying to force audio codec driver family mp3lib...
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received Opening audio decoder: [mp3lib] MPEG layer-2, layer-3
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received AUDIO: 44100 Hz, 2 ch, s16le, 96.0 kbit/6.80% (ratio: 12000->176400)
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received Selected audio codec: [mp3] afm: mp3lib (mp3lib MPEG layer-2, layer-3)
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received ==========================================================================
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received AO: [pulse] 44100Hz 2ch s16le (2 bytes per sample)
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received Video: no video
+[DEBUG] 2014-08-19 23:21:57 -0400: Mplayer#start: received Starting playback...
+[DEBUG] 2014-08-19 23:22:00 -0400: Mplayer#stop
+[DEBUG] 2014-08-19 23:22:00 -0400: Mplayer#stop: sending SIGTERM to pid 1116
+[DEBUG] 2014-08-19 23:22:00 -0400: Mplayer#stop: sending SIGTERM to pid 1143
+[DEBUG] 2014-08-19 23:22:00 -0400: Mplayer#start: received A:   0.1 (00.0) of 0.0 (unknown) ??,?% 53% [JA:   0.1 (00.1) of 0.0 (unknown) ??,?% 50% [JA:   0.2 (00.2) of 0.0 (unknown)  0.4% 81% [JA:   0.4 (00.4) of 0.0 (unknown)  0.4% 85% [JA:   0.6 (00.6) of 0.0 (unknown)  0.4% 82% [JA:   0.7 (00.7) of 0.0 (unknown)  0.4% 82% [JA:   0.9 (00.9) of 0.0 (unknown)  0.4% 81% [JA:   1.1 (01.1) of 0.0 (unknown)  0.4% 78% [JA:   1.3 (01.2) of 0.0 (unknown)  0.4% 76% [JA:   1.5 (01.4) of 0.0 (unknown)  0.4% 75% [JA:   1.7 (01.6) of 0.0 (unknown)  0.4% 73% [JA:   1.9 (01.8) of 0.0 (unknown)  0.4% 71% [JA:   2.1 (02.0) of 0.0 (unknown)  0.4% 70% [JA:   2.2 (02.2) of 0.0 (unknown)  0.4% 68% [JA:   2.4 (02.4) of 0.0 (unknown)  0.4% 67% [JA:   2.6 (02.6) of 0.0 (unknown)  0.4% 65% [J
+[DEBUG] 2014-08-19 23:22:00 -0400: Mplayer#start: received 
+[DEBUG] 2014-08-19 23:22:00 -0400: Mplayer#start: received Exiting... (Quit)
+[DEBUG] 2014-08-19 23:22:14 -0400: Mplayer#start: popen mplayer -cache 128 -cache-min 20 -playlist http://listen.di.fm/public3/breaks.pls
+[DEBUG] 2014-08-19 23:22:14 -0400: Mplayer#start: Resolving listen.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:22:14 -0400: Mplayer#start: Resolving listen.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:22:14 -0400: Mplayer#start: Connecting to server listen.di.fm[70.42.73.56]: 80...
+[DEBUG] 2014-08-19 23:22:14 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:14 -0400: Mplayer#start: Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:22:14 -0400: Mplayer#start: MPlayer 1.1-4.8 (C) 2000-2012 MPlayer Team
+[DEBUG] 2014-08-19 23:22:14 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:14 -0400: Mplayer#start: Playing http://pub3.di.fm:80/di_breaks.
+[DEBUG] 2014-08-19 23:22:14 -0400: Mplayer#start: Resolving pub3.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:22:14 -0400: Mplayer#start: Resolving pub3.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:22:14 -0400: Mplayer#start: Connecting to server pub3.di.fm[70.42.73.188]: 80...
+[DEBUG] 2014-08-19 23:22:15 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:15 -0400: Mplayer#start: Name   : Breaks - DIGITALLY IMPORTED - a fine assortment of trance and house breaks
+[DEBUG] 2014-08-19 23:22:15 -0400: Mplayer#start: Genre  : Electronic Breaks Trance
+[DEBUG] 2014-08-19 23:22:15 -0400: Mplayer#start: Website: http://www.di.fm/breaks
+[DEBUG] 2014-08-19 23:22:15 -0400: Mplayer#start: Public : no
+[DEBUG] 2014-08-19 23:22:15 -0400: Mplayer#start: Bitrate: 96kbit/s
+[DEBUG] 2014-08-19 23:22:15 -0400: Mplayer#start: Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: ICY Info: StreamTitle='Morning Coffee Vol 5 - mixed by Alex Levin';StreamUrl='';
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: Cache fill:  6.25% (8192 bytes)   
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: Audio only file format detected.
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: ==========================================================================
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: Trying to force audio codec driver family mp3lib...
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: Opening audio decoder: [mp3lib] MPEG layer-2, layer-3
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: AUDIO: 44100 Hz, 2 ch, s16le, 96.0 kbit/6.80% (ratio: 12000->176400)
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: Selected audio codec: [mp3] afm: mp3lib (mp3lib MPEG layer-2, layer-3)
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: ==========================================================================
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: AO: [pulse] 44100Hz 2ch s16le (2 bytes per sample)
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: Video: no video
+[DEBUG] 2014-08-19 23:22:17 -0400: Mplayer#start: Starting playback...
+[DEBUG] 2014-08-19 23:22:19 -0400: Mplayer#stop
+[DEBUG] 2014-08-19 23:22:19 -0400: Mplayer#stop: sending SIGTERM to pid 1350
+[DEBUG] 2014-08-19 23:22:19 -0400: Mplayer#stop: sending SIGTERM to pid 1354
+[DEBUG] 2014-08-19 23:22:19 -0400: Mplayer#start: A:   0.1 (00.0) of 0.0 (unknown) ??,?% 28% [JA:   0.1 (00.1) of 0.0 (unknown) ??,?% 25% [JA:   0.2 (00.2) of 0.0 (unknown)  0.4% 68% [JA:   0.4 (00.4) of 0.0 (unknown)  0.4% 85% [JA:   0.6 (00.6) of 0.0 (unknown)  0.4% 82% [JA:   0.7 (00.7) of 0.0 (unknown)  0.4% 82% [JA:   0.9 (00.9) of 0.0 (unknown)  0.4% 81% [JA:   1.1 (01.1) of 0.0 (unknown)  0.4% 78% [JA:   1.3 (01.2) of 0.0 (unknown)  0.4% 76% [JA:   1.5 (01.4) of 0.0 (unknown)  0.4% 75% [JA:   1.7 (01.6) of 0.0 (unknown)  0.4% 73% [JA:   1.9 (01.8) of 0.0 (unknown)  0.4% 71% [J
+[DEBUG] 2014-08-19 23:22:19 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:19 -0400: Mplayer#start: Exiting... (Quit)
+[DEBUG] 2014-08-19 23:22:36 -0400: Mplayer#start: popen mplayer -cache 128 -cache-min 20 -playlist http://listen.di.fm/public3/breaks.pls
+[DEBUG] 2014-08-19 23:22:36 -0400: Mplayer#start: Resolving listen.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:22:36 -0400: Mplayer#start: Resolving listen.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:22:36 -0400: Mplayer#start: Connecting to server listen.di.fm[70.42.73.56]: 80...
+[DEBUG] 2014-08-19 23:22:36 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:36 -0400: Mplayer#start: Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:22:36 -0400: Mplayer#start: MPlayer 1.1-4.8 (C) 2000-2012 MPlayer Team
+[DEBUG] 2014-08-19 23:22:36 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:36 -0400: Mplayer#start: Playing http://pub3.di.fm:80/di_breaks.
+[DEBUG] 2014-08-19 23:22:36 -0400: Mplayer#start: Resolving pub3.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:22:36 -0400: Mplayer#start: Resolving pub3.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:22:36 -0400: Mplayer#start: Connecting to server pub3.di.fm[70.42.73.188]: 80...
+[DEBUG] 2014-08-19 23:22:37 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:37 -0400: Mplayer#start: Name   : Breaks - DIGITALLY IMPORTED - a fine assortment of trance and house breaks
+[DEBUG] 2014-08-19 23:22:37 -0400: Mplayer#start: Genre  : Electronic Breaks Trance
+[DEBUG] 2014-08-19 23:22:37 -0400: Mplayer#start: Website: http://www.di.fm/breaks
+[DEBUG] 2014-08-19 23:22:37 -0400: Mplayer#start: Public : no
+[DEBUG] 2014-08-19 23:22:37 -0400: Mplayer#start: Bitrate: 96kbit/s
+[DEBUG] 2014-08-19 23:22:37 -0400: Mplayer#start: Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: ICY Info: StreamTitle='Morning Coffee Vol 5 - mixed by Alex Levin';StreamUrl='';
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: Cache fill:  6.25% (8192 bytes)   
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: Audio only file format detected.
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: ==========================================================================
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: Trying to force audio codec driver family mp3lib...
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: Opening audio decoder: [mp3lib] MPEG layer-2, layer-3
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: AUDIO: 44100 Hz, 2 ch, s16le, 96.0 kbit/6.80% (ratio: 12000->176400)
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: Selected audio codec: [mp3] afm: mp3lib (mp3lib MPEG layer-2, layer-3)
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: ==========================================================================
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: AO: [pulse] 44100Hz 2ch s16le (2 bytes per sample)
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: Video: no video
+[DEBUG] 2014-08-19 23:22:38 -0400: Mplayer#start: Starting playback...
+[DEBUG] 2014-08-19 23:22:41 -0400: Mplayer#stop
+[DEBUG] 2014-08-19 23:22:41 -0400: Mplayer#stop: sending SIGTERM to pid 1607
+[DEBUG] 2014-08-19 23:22:41 -0400: Mplayer#stop: sending SIGTERM to pid 1611
+[DEBUG] 2014-08-19 23:22:41 -0400: Mplayer#start: A:   0.1 (00.0) of 0.0 (unknown) ??,?% 53% [JA:   0.1 (00.1) of 0.0 (unknown) ??,?% 50% [JA:   0.2 (00.2) of 0.0 (unknown)  0.2% 87% [JA:   0.4 (00.4) of 0.0 (unknown)  0.2% 85% [JA:   0.6 (00.6) of 0.0 (unknown)  0.3% 82% [JA:   0.7 (00.7) of 0.0 (unknown)  0.3% 82% [JA:   0.9 (00.9) of 0.0 (unknown)  0.3% 81% [JA:   1.1 (01.1) of 0.0 (unknown)  0.3% 78% [JA:   1.3 (01.2) of 0.0 (unknown)  0.3% 76% [JA:   1.5 (01.4) of 0.0 (unknown)  0.3% 75% [JA:   1.7 (01.6) of 0.0 (unknown)  0.3% 73% [JA:   1.9 (01.8) of 0.0 (unknown)  0.3% 71% [JA:   2.0 (02.0) of 0.0 (unknown)  0.4% 70% [JA:   2.2 (02.2) of 0.0 (unknown)  0.4% 68% [JA:   2.4 (02.4) of 0.0 (unknown)  0.4% 67% [JA:   2.6 (02.6) of 0.0 (unknown)  0.4% 65% [JA:   2.8 (02.7) of 0.0 (unknown)  0.4% 62% [JA:   3.0 (02.9) of 0.0 (unknown)  0.4% 60% [JA:   3.2 (03.1) of 0.0 (unknown)  0.4% 59% [J
+[DEBUG] 2014-08-19 23:22:41 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:41 -0400: Mplayer#start: Exiting... (Quit)
+[DEBUG] 2014-08-19 23:22:52 -0400: Mplayer#start: popen mplayer -cache 128 -cache-min 20 -playlist http://listen.di.fm/public3/breaks.pls
+[DEBUG] 2014-08-19 23:22:52 -0400: Mplayer#start: Resolving listen.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:22:52 -0400: Mplayer#start: Resolving listen.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:22:52 -0400: Mplayer#start: Connecting to server listen.di.fm[70.42.73.56]: 80...
+[DEBUG] 2014-08-19 23:22:52 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:52 -0400: Mplayer#start: Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:22:52 -0400: Mplayer#start: MPlayer 1.1-4.8 (C) 2000-2012 MPlayer Team
+[DEBUG] 2014-08-19 23:22:52 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:52 -0400: Mplayer#start: Playing http://pub3.di.fm:80/di_breaks.
+[DEBUG] 2014-08-19 23:22:52 -0400: Mplayer#start: Resolving pub3.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:22:52 -0400: Mplayer#start: Resolving pub3.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:22:52 -0400: Mplayer#start: Connecting to server pub3.di.fm[70.42.73.188]: 80...
+[DEBUG] 2014-08-19 23:22:53 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:53 -0400: Mplayer#start: Name   : Breaks - DIGITALLY IMPORTED - a fine assortment of trance and house breaks
+[DEBUG] 2014-08-19 23:22:53 -0400: Mplayer#start: Genre  : Electronic Breaks Trance
+[DEBUG] 2014-08-19 23:22:53 -0400: Mplayer#start: Website: http://www.di.fm/breaks
+[DEBUG] 2014-08-19 23:22:53 -0400: Mplayer#start: Public : no
+[DEBUG] 2014-08-19 23:22:53 -0400: Mplayer#start: Bitrate: 96kbit/s
+[DEBUG] 2014-08-19 23:22:53 -0400: Mplayer#start: Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: ICY Info: StreamTitle='Morning Coffee Vol 5 - mixed by Alex Levin';StreamUrl='';
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: Cache fill: 18.75% (24576 bytes)   
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: ICY Info: StreamTitle='Ed Solo & Deekline - Top Rankin (Slynk Remix)';StreamUrl='';
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: Audio only file format detected.
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: ==========================================================================
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: Trying to force audio codec driver family mp3lib...
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: Opening audio decoder: [mp3lib] MPEG layer-2, layer-3
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: AUDIO: 44100 Hz, 2 ch, s16le, 96.0 kbit/6.80% (ratio: 12000->176400)
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: Selected audio codec: [mp3] afm: mp3lib (mp3lib MPEG layer-2, layer-3)
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: ==========================================================================
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: AO: [pulse] 44100Hz 2ch s16le (2 bytes per sample)
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: Video: no video
+[DEBUG] 2014-08-19 23:22:54 -0400: Mplayer#start: Starting playback...
+[DEBUG] 2014-08-19 23:22:57 -0400: Mplayer#stop
+[DEBUG] 2014-08-19 23:22:57 -0400: Mplayer#stop: sending SIGTERM to pid 1787
+[DEBUG] 2014-08-19 23:22:57 -0400: Mplayer#stop: sending SIGTERM to pid 1791
+[DEBUG] 2014-08-19 23:22:57 -0400: Mplayer#start: A:   0.1 (00.0) of 0.0 (unknown) ??,?% 65% [JA:   0.1 (00.1) of 0.0 (unknown) ??,?% 62% [JA:   0.2 (00.2) of 0.0 (unknown)  0.4% 87% [JA:   0.4 (00.4) of 0.0 (unknown)  0.4% 85% [JA:   0.6 (00.6) of 0.0 (unknown)  0.4% 82% [JA:   0.7 (00.7) of 0.0 (unknown)  0.4% 82% [JA:   0.9 (00.9) of 0.0 (unknown)  0.4% 81% [JA:   1.1 (01.1) of 0.0 (unknown)  0.4% 78% [JA:   1.3 (01.2) of 0.0 (unknown)  0.4% 76% [JA:   1.5 (01.4) of 0.0 (unknown)  0.4% 75% [JA:   1.7 (01.6) of 0.0 (unknown)  0.4% 73% [JA:   1.9 (01.8) of 0.0 (unknown)  0.4% 71% [JA:   2.1 (02.0) of 0.0 (unknown)  0.4% 70% [JA:   2.2 (02.2) of 0.0 (unknown)  0.4% 68% [JA:   2.4 (02.4) of 0.0 (unknown)  0.4% 67% [JA:   2.6 (02.6) of 0.0 (unknown)  0.4% 65% [JA:   2.8 (02.8) of 0.0 (unknown)  0.4% 62% [JA:   3.0 (03.0) of 0.0 (unknown)  0.4% 60% [J
+[DEBUG] 2014-08-19 23:22:57 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:22:57 -0400: Mplayer#start: Exiting... (Quit)
+[DEBUG] 2014-08-19 23:23:30 -0400: Mplayer#start: popen mplayer -cache 128 -cache-min 20 -playlist http://listen.di.fm/public3/breaks.pls
+[DEBUG] 2014-08-19 23:23:30 -0400: Mplayer#start: Resolving listen.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:23:30 -0400: Mplayer#start: Resolving listen.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: Connecting to server listen.di.fm[70.42.73.56]: 80...
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: MPlayer 1.1-4.8 (C) 2000-2012 MPlayer Team
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: Playing http://pub3.di.fm:80/di_breaks.
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: Resolving pub3.di.fm for AF_INET6...
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: Resolving pub3.di.fm for AF_INET...
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: Connecting to server pub3.di.fm[70.42.73.188]: 80...
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: Name   : Breaks - DIGITALLY IMPORTED - a fine assortment of trance and house breaks
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: Genre  : Electronic Breaks Trance
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: Website: http://www.di.fm/breaks
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: Public : no
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: Bitrate: 96kbit/s
+[DEBUG] 2014-08-19 23:23:31 -0400: Mplayer#start: Cache size set to 128 KBytes
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   Cache fill:  0.00% (0 bytes)   
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: ICY Info: StreamTitle='Ed Solo & Deekline - Top Rankin (Slynk Remix)';StreamUrl='';
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: Cache fill:  6.25% (8192 bytes)   
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: Audio only file format detected.
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: ==========================================================================
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: Trying to force audio codec driver family mp3lib...
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: Opening audio decoder: [mp3lib] MPEG layer-2, layer-3
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: AUDIO: 44100 Hz, 2 ch, s16le, 96.0 kbit/6.80% (ratio: 12000->176400)
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: Selected audio codec: [mp3] afm: mp3lib (mp3lib MPEG layer-2, layer-3)
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: ==========================================================================
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: AO: [pulse] 44100Hz 2ch s16le (2 bytes per sample)
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: Video: no video
+[DEBUG] 2014-08-19 23:23:32 -0400: Mplayer#start: Starting playback...
+[DEBUG] 2014-08-19 23:23:35 -0400: Mplayer#stop
+[DEBUG] 2014-08-19 23:23:36 -0400: Mplayer#stop: sending SIGTERM to pid 2178
+[DEBUG] 2014-08-19 23:23:36 -0400: Mplayer#stop: sending SIGTERM to pid 2179
+[DEBUG] 2014-08-19 23:23:36 -0400: Mplayer#start: A:  -0.0 (unknown) of 0.0 (unknown) ??,?% 59% [JA:   0.1 (00.0) of 0.0 (unknown) ??,?% 82% [JA:   0.2 (00.1) of 0.0 (unknown)  0.3% 87% [JA:   0.4 (00.3) of 0.0 (unknown)  0.3% 85% [JA:   0.6 (00.5) of 0.0 (unknown)  0.3% 84% [JA:   0.7 (00.6) of 0.0 (unknown)  0.3% 82% [JA:   0.9 (00.8) of 0.0 (unknown)  0.3% 81% [JA:   1.1 (01.0) of 0.0 (unknown)  0.4% 79% [JA:   1.2 (01.2) of 0.0 (unknown)  0.4% 78% [JA:   1.4 (01.4) of 0.0 (unknown)  0.4% 75% [JA:   1.6 (01.6) of 0.0 (unknown)  0.4% 73% [JA:   1.8 (01.8) of 0.0 (unknown)  0.4% 71% [JA:   2.0 (01.9) of 0.0 (unknown)  0.4% 70% [JA:   2.2 (02.1) of 0.0 (unknown)  0.4% 68% [JA:   2.4 (02.3) of 0.0 (unknown)  0.4% 67% [JA:   2.6 (02.5) of 0.0 (unknown)  0.4% 65% [JA:   2.7 (02.7) of 0.0 (unknown)  0.4% 64% [JA:   2.9 (02.9) of 0.0 (unknown)  0.4% 62% [JA:   3.1 (03.1) of 0.0 (unknown)  0.4% 60% [JA:   3.3 (03.3) of 0.0 (unknown)  0.4% 57% [JA:   3.5 (03.4) of 0.0 (unknown)  0.4% 56% [JA:   3.7 (03.7) of 0.0 (unknown)  0.4% 54% [J
+[DEBUG] 2014-08-19 23:23:36 -0400: Mplayer#start: 
+[DEBUG] 2014-08-19 23:23:36 -0400: Mplayer#start: Exiting... (Quit)
