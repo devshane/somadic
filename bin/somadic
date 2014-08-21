@@ -11,6 +11,7 @@ class Notification
 end
 
 Signal.trap("INT") do |sig|
+  @channel.stop
   puts
   exit
 end
@@ -56,11 +57,11 @@ end
 options[:channel] = ARGV[1]
 if ARGV[0] == 'di'
   options[:di_premium_id] = ENV['DI_FM_PREMIUM_ID']
-  channel = Somadic::Channel::DI.new(options)
+  @channel = Somadic::Channel::DI.new(options)
 else
-  channel = Somadic::Channel::Soma.new(options)
+  @channel = Somadic::Channel::Soma.new(options)
 end
-channel.start
+@channel.start
 # TODO: ugh.
 while true
   sleep 1

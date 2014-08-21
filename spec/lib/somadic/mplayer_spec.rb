@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Somadic::Mplayer do
   it 'can start and stop mplayer' do
-    mp = Somadic::Mplayer.new('http://listen.di.fm/public3/breaks.pls')
+    mp = Somadic::Mplayer.new({ url: 'http://listen.di.fm/public3/breaks.pls' })
     expect(mp.cache).to be nil
     expect(mp.cache_min).to be nil
     if pidlist.empty?
@@ -19,7 +19,7 @@ describe Somadic::Mplayer do
   end
 
   it 'sets cache options correctly' do
-    mp = Somadic::Mplayer.new('http://ghost.com', cache: 999, cache_min: 90)
+    mp = Somadic::Mplayer.new({ url: 'http://ghost.com', cache: 999, cache_min: 90 })
     expect(mp.cache).to eql 999
     expect(mp.cache_min).to eql 90
   end

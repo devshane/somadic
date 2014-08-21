@@ -1,4 +1,4 @@
-require 'logger'
+require 'mono_logger'
 require 'observer'
 
 module Somadic

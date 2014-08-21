@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Somadic::Channel::DI do
   it 'can play DI' do
     if pidlist.empty?
-      di = Somadic::Channel::DI.new('breaks')
+      di = Somadic::Channel::DI.new({ channel: 'breaks' })
       di.start
       sleep secs_to_wait # let it spin up
       expect(pidlist.count).to be > 0
