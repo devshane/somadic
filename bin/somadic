@@ -2,21 +2,37 @@
 require 'optparse'
 require 'somadic'
 
+# This receives notifications from the Mplayer wrapper so that it can display
+# song info.
+class Notification
+  def update(channel, song)
+    puts "[#{channel}] #{Time.now.strftime('%H;%M')} #{song}"
+  end
+end
+
+Signal.trap("INT") do |sig|
+  puts
+  exit
+end
+
 options = { cache: nil,
-            cache_min: nil }
+            cache_min: nil,
+            listeners: [Notification.new] }
 
 @optparser = OptionParser.new do |o|
   o.banner = 'Usage: somadic [options] site channel'
   o.separator ''
   o.separator 'The `site` parameter can be di or soma.'
   o.separator ''
-  o.separator 'DI premium channels require an environment variable: DI_FM_PREMIUM_ID.'
+  o.separator 'DI premium channels require an environment variable: ' \
+              'DI_FM_PREMIUM_ID.'
   o.separator ''
 
   o.on('-c CACHE_SIZE', '--cache CACHE_SIZE', 'Set the cache size (KB)') do |c|
     options[:cache] = c
   end
-  o.on('-m CACHE_MIN', '--cache-min CACHE_MIN', 'Set the minimum cache threshold (percent)') do |m|
+  o.on('-m CACHE_MIN', '--cache-min CACHE_MIN',
+       'Set the minimum cache threshold (percent)') do |m|
     options[:cache_min] = m
   end
   o.on('-h', '--help', 'Display this message') { puts o; exit }
@@ -33,25 +49,19 @@ end
 if ARGV[0].nil? || ARGV[1].nil?
   usage
 end
-
-if ARGV[0] == 'di'
-  di = Somadic::Channel::DI.new(ARGV[1], ENV['DI_FM_PREMIUM_ID'])
-  di.start
-  while true
-    sleep 1
-  end
-elsif ARGV[0] == 'soma'
-  soma = Somadic::Channel::Soma.new(ARGV[1])
-  soma.start
-  while true
-    sleep 1
-  end
-else
+if ARGV[0] != 'di' && ARGV[0] != 'soma'
   usage
 end
 
-#Signal.trap("INT") do |sig|
-#  puts
-#  exit
-#end
-
+options[:channel] = ARGV[1]
+if ARGV[0] == 'di'
+  options[:di_premium_id] = ENV['DI_FM_PREMIUM_ID']
+  channel = Somadic::Channel::DI.new(options)
+else
+  channel = Somadic::Channel::Soma.new(options)
+end
+channel.start
+# TODO: ugh.
+while true
+  sleep 1
+end

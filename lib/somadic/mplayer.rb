@@ -16,8 +16,8 @@ module Somadic
     #                to `cache_min` of the total.
     #
     # See the mplayer man page for more.
-    def initialize(url, options = {})
-      @url = url
+    def initialize(options)
+      @url = options[:url]
       @cache = options[:cache]
       @cache_min =options[:cache_min]
     end
