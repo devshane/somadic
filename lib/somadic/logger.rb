@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Somadic
   class Logger
     LOG_PATH = "#{ENV['HOME']}/.somadic/"
@@ -16,7 +18,7 @@ module Somadic
     end
 
     def self.instance
-      FileUtils.mkdir_p(LOG_PATH) unless File.directory?(LOG_PATH)
+      ::FileUtils.mkdir_p(LOG_PATH) unless File.directory?(LOG_PATH)
       l = MonoLogger.new(File.join(LOG_PATH, LOG_FILE), 'daily')
       l.formatter = proc do |severity, datetime, _, msg|
         "[#{severity}] #{datetime}: #{msg}\n"
