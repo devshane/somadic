@@ -30,6 +30,7 @@ module Somadic
       @listeners.each do |l|
         l.update(@channel, song) if l.respond_to?(:update)
       end
+      PlayHistory.write("#{time.strftime('%H:%M:%S')} [#{@channel}] #{song}")
     end
   end
 end

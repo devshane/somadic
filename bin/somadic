@@ -6,7 +6,7 @@ require 'somadic'
 # song info.
 class Notification
   def update(channel, song)
-    puts "[#{channel}] #{Time.now.strftime('%H;%M')} #{song}"
+    puts "[#{channel}] #{Time.now.strftime('%H:%M')} #{song}"
   end
 end
 

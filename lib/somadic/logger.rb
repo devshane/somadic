@@ -1,6 +1,6 @@
 module Somadic
   class Logger
-    LOG_PATH = 'log/'
+    LOG_PATH = "#{ENV['HOME']}/.somadic/"
     LOG_FILE = 'somadic.log'
 
     def self.debug(msg)
