@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Somadic
   class PlayHistory
     LOG_PATH = "#{ENV['HOME']}/.somadic/"
@@ -8,7 +10,7 @@ module Somadic
     end
 
     def self.instance
-      FileUtils.mkdir_p(LOG_PATH) unless File.directory?(LOG_PATH)
+      ::FileUtils.mkdir_p(LOG_PATH) unless File.directory?(LOG_PATH)
       l = MonoLogger.new(File.join(LOG_PATH, LOG_FILE), 'daily')
       l.formatter = proc do |_, _, _, msg|
         "#{msg}\n"
