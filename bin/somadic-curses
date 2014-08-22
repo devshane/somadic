@@ -1,0 +1,244 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require 'somadic'
+require 'curses'
+require 'progress_bar'
+require 'thread'
+
+# TODO: symbolize the @song keys, it's channel[:name] but song['title']
+
+# Monkey-patches ProgressBar so that it displays periods instead of blank
+# spaces.
+class ProgressBar
+  def render_bar
+    return '' if bar_width < 2
+    "[" +
+      "#" * (ratio * (bar_width - 2)).ceil +
+      "." * ((1-ratio) * (bar_width - 2)).floor +
+      "]"
+  end
+end
+
+# A curses display.
+class Display
+  include Curses
+
+  attr_accessor :kp_queue
+
+  def initialize
+    curses_init
+    @bar = ProgressBar.new(1, :bar)
+
+    @kp_queue = Queue.new
+    start_keypress_thread
+  end
+
+  # Updates the display.
+  def update(channel = nil, songs = nil)
+    @channel = channel if channel
+    @songs = songs if songs
+
+    return if @channel.nil? || @songs.nil?
+
+    cur_song = @songs.first
+
+    # times
+    start_time = Time.at(cur_song['started'])
+    duration = cur_song['duration']
+    if duration <= 0
+      end_time = nil
+      remain_secs = 0
+      remains = duration < 0 ?
+                '[ Updating ]' :
+                "[ #{start_time.strftime('%H:%M:%S')} ]"
+    else
+      end_time = start_time + duration
+      remain_secs = (end_time - Time.now).to_i
+      remains = "[ #{format_secs((Time.now - start_time).to_i)} " \
+                "/ #{format_secs(duration)} ]"
+    end
+
+    # current song
+    line = "[ #{@channel[:name]} ]"
+    line += "[ #{cur_song['track']}"
+    up = cur_song['votes']['up']
+    down = cur_song['votes']['down']
+    stats = up + down != 0 ? " +#{up}/-#{down}" : ''
+
+    space_len = Curses.cols - stats.length - line.length - remains.length - 2
+    spaces = space_len > 0 ? ' ' * space_len : ''
+    line += "#{spaces}#{stats} ]#{remains}"
+    cwrite 0, 0, line
+
+    # current song progress
+    if duration <= 0
+      @bar.max = @bar.count = 100
+    else
+      @bar.max = duration
+      @bar.count = (Time.now - start_time).to_i
+    end
+    cwrite 1, 0, @bar.to_s
+
+    # song history
+    row = 2
+    @songs[1..-1].each do |song|
+      up = song['votes']['up']
+      down = song['votes']['down']
+      stats = up + down != 0 ?  ": +#{up}/-#{down} :" : ''
+
+      line = ": #{song['track']}"
+      if song['duration'] == 0
+        duration = Time.at(song['started']).strftime('%H:%M:%S')
+      else
+        duration = format_secs(song['duration'])
+      end
+      begin
+        spaces = ' ' * (Curses.cols - line.length - stats.length - duration.length - 3)
+      rescue
+        # TODO: if line.length is too long, truncate it
+        spaces = ''
+      end
+      line += spaces
+      line += "#{stats} #{duration}"
+      line += ' :'
+      cwrite row, 0, line
+      row += 1
+    end
+  end
+
+  private
+
+  def start_keypress_thread
+    Thread.new do
+      loop do
+        ch = Curses.getch
+        if ch
+          Somadic::Logger.debug("start_keypress_thread: adding #{ch}")
+          begin
+            @kp_queue << ch
+          rescue => e
+            Somadic::Logger.error("start_keypress_thread: error pushing to queue: #{e}")
+          end
+        end
+        sleep 0.2
+      end
+    end
+  end
+
+  # Curses init
+  def curses_init
+    Curses.noecho
+    Curses.curs_set(0)
+    Curses.init_screen
+    Curses.timeout = 0
+  end
+
+  # Curses write
+  def cwrite(row, col, message)
+    Curses.setpos(row, col)
+    Curses.clrtoeol
+    Curses.addstr(message)
+    Curses.refresh
+  end
+
+  # Cursor pos
+  def cpos(row, col)
+    Curses.setpos(row, col)
+    Curses.refresh
+  end
+
+  # Formats `seconds` to hours, mins, secs.
+  def format_secs(seconds)
+    secs = seconds.abs
+    hours = 0
+    if secs > 3600
+      hours = secs / 3600
+      secs -= 3600 * hours
+    end
+    mins = secs / 60
+    secs = secs % 60
+    h = hours > 0 ? "#{"%d" % hours}:" : ""
+    "#{h}#{"%02d" % mins}:#{"%02d" % secs}"
+  end
+end
+
+Signal.trap("INT") do |sig|
+  @channel.stop
+  exit
+end
+
+@display = Display.new
+options = { cache: nil,
+            cache_min: nil,
+            listeners: [@display] }
+
+@optparser = OptionParser.new do |o|
+  o.banner = 'Usage: somadic [options] site channel'
+  o.separator ''
+  o.separator 'The `site` parameter can be di or soma.'
+  o.separator ''
+  o.separator 'DI premium channels require an environment variable: ' \
+              'DI_FM_PREMIUM_ID.'
+  o.separator ''
+
+  o.on('-c CACHE_SIZE', '--cache CACHE_SIZE', 'Set the cache size (KB)') do |c|
+    options[:cache] = c
+  end
+  o.on('-m CACHE_MIN', '--cache-min CACHE_MIN',
+       'Set the minimum cache threshold (percent)') do |m|
+    options[:cache_min] = m
+  end
+  o.on('-h', '--help', 'Display this message') { puts o; exit }
+
+  o.parse!
+end
+
+def usage
+  puts @optparser
+  puts
+  exit
+end
+
+if ARGV[0].nil? || ARGV[1].nil?
+  usage
+end
+if ARGV[0] != 'di' && ARGV[0] != 'soma'
+  usage
+end
+
+options[:channel] = ARGV[1]
+if ARGV[0] == 'di'
+  options[:premium_id] = ENV['DI_FM_PREMIUM_ID']
+  @channel = Somadic::Channel::DI.new(options)
+else
+  @channel = Somadic::Channel::Soma.new(options)
+end
+@channel.start
+
+# keypresses are handled thru a Queue
+keypresses = []
+quitting = false
+while !quitting
+  begin
+    keypresses << @display.kp_queue.pop(non_block: true)
+  rescue ThreadError => te
+    unless te.to_s == "queue empty"
+      Somadic::Logger.error("kp_queue.pop error: #{te}")
+    end
+  end
+  unless keypresses.empty?
+    keypresses.each do |kp|
+      Somadic::Logger.debug("processing keypress: #{kp}")
+      case kp
+      when 'q'
+        Somadic::Logger.debug('quitting!')
+        @channel.stop
+        quitting = true
+      end
+      keypresses.delete(kp)
+    end
+  end
+
+  @display.update
+  sleep 0.2
+end

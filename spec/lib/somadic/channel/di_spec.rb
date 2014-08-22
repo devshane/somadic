@@ -17,4 +17,15 @@ describe Somadic::Channel::DI do
   end
 
   it 'blows up with a bad channel'
+
+  it 'can load a channel list' do
+    di = Somadic::Channel::DI.new({ channel: 'breaks' })
+    expect(di.channels.count).to be > 10
+  end
+
+  it 'can find a channel by name' do
+    di = Somadic::Channel::DI.new({ channel: 'breaks' })
+    c = di.find_channel('breaks')
+    expect(c[:id].to_i).to eql 15
+  end
 end

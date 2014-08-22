@@ -1,9 +1,11 @@
 module Somadic
   class BaseChannel
+    attr_reader :channels
+
     def initialize(options)
       @url = options[:url]
       playlist = @url.split('/').last
-      @channel = playlist[0..playlist.index('.pls') - 1]
+      @channel = find_channel(playlist[0..playlist.index('.pls') - 1])
 
       @mp = Mplayer.new(options)
       @mp.add_observer(self)
@@ -27,10 +29,17 @@ module Somadic
     # Observer callback, and also one of the simplest displays possible.
     def update(time, song)
       Somadic::Logger.debug("BaseChannel#update: #{time} - #{song}")
+      songs = [{ 'started' => Time.now.to_i - 1,
+                 'duration' => 1,
+                 'track' => song,
+                 'votes' => { 'up' => 0, 'down' => 0 } }]
       @listeners.each do |l|
-        l.update(@channel, song) if l.respond_to?(:update)
+        l.update(@channel, songs) if l.respond_to?(:update)
       end
-      PlayHistory.write("#{time.strftime('%H:%M:%S')} [#{@channel}] #{song}")
+    end
+
+    def find_channel(name)
+      raise NotImplementedError
     end
   end
 end

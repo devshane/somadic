@@ -30,12 +30,12 @@ module Somadic
         pipe = IO.popen(cmd, 'r+')
         loop do
           line = pipe.readline.chomp
-          Somadic::Logger.debug("Mplayer#pipe: #{line}")
           if line['Starting playback']
-            # playing...
+            Somadic::Logger.debug("Mplayer#pipe: #{line}")
           elsif line['ICY']
-            parts = line.split(';')
-            song = parts[0].match(/'(.*?)'/)[1]
+            Somadic::Logger.debug("Mplayer#pipe: #{line}")
+            _, v = line.split(';')[0].split('=')
+            song = v[1..-2]
             notify(song)
           end
         end
