@@ -37,7 +37,7 @@ Clone the repo:
 
 Build the gem:
 
-    $ gem builde somadic.gemspec
+    $ gem build somadic.gemspec
 
 Install the gem:
 
