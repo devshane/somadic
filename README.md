@@ -12,20 +12,20 @@ $ somadic soma secretagent130
 [secretagent130] 23:18 Henry Mancini - Llujon [DJ Cam Remaster]
 ```
 
-`somadic-curses` displays more information:
+`somadic-curses` displays more information like up/down votes, progress, and track times.
 
 ```
 $ somadic-curses di breaks
 
-[ breaks ][ Rave CHannel - Te Quiero (AMase Breaks Mix)                                  ][ 00:25 / 07:38 ]
-[######...................................................................................................]
-: Beware of Pickpockets - Nimbus (Original Mix)                                                     05:27 :
-: Deekline - 01NIGHT MOODS ORIGIONAL MIMAI BASS MIX                                       : +0/-1 : 03:29 :
-: Benny Benassi - Satisfaction (DirTy MaN Mix)                                                      04:40 :
-: Vetoo - Recall (Refracture Remix)                                                                 05:40 :
-: Firebeatz feat Schella - Dear New York (Barrera Breaks Mix)                                       05:07 :
-: Quade - Quade Character Dephicit Remix Original Mix                                               04:54 :
-: Ils - 589027 Lone Riders Def Inc  Remix                                                 : +1/-0 : 06:48 :
+[ breaks ][ Rave CHannel - Te Quiero (AMase Breaks Mix)                 ][ 00:25 / 07:38 ]
+[######..................................................................................]
+: Beware of Pickpockets - Nimbus (Original Mix)                                    05:27 :
+: Deekline - 01NIGHT MOODS ORIGIONAL MIMAI BASS MIX                      : +0/-1 : 03:29 :
+: Benny Benassi - Satisfaction (DirTy MaN Mix)                                     04:40 :
+: Vetoo - Recall (Refracture Remix)                                                05:40 :
+: Firebeatz feat Schella - Dear New York (Barrera Breaks Mix)                      05:07 :
+: Quade - Quade Character Dephicit Remix Original Mix                              04:54 :
+: Ils - 589027 Lone Riders Def Inc  Remix                                : +1/-0 : 06:48 :
 
 ```
 
