@@ -17,7 +17,7 @@ $ somadic soma secretagent130
 ```
 $ somadic-curses di breaks
 
-[ breaks ][ Rave CHannel - Te Quiero (AMase Breaks Mix)                 ][ 00:25 / 07:38 ]
+[ breaks ][ Rave Channel - Te Quiero (Amase Breaks Mix)                 ][ 00:25 / 07:38 ]
 [######..................................................................................]
 : Beware of Pickpockets - Nimbus (Original Mix)                                    05:27 :
 : Deekline - 01NIGHT MOODS ORIGIONAL MIMAI BASS MIX                      : +0/-1 : 03:29 :
