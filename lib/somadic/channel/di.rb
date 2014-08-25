@@ -7,7 +7,6 @@ module Somadic
         else
           "http://listen.di.fm/public3/#{options[:channel]}.pls"
         end
-        Somadic::Logger.debug("DI#initialize: options=#{options}")
         load_channels
         super(options.merge({ url: url }))
 
@@ -39,6 +38,15 @@ module Somadic
         @listeners.each do |l|
           l.update(@channel, songs) if l.respond_to?(:update)
         end
+      end
+
+      # Overrides BaseChannel.
+      def stop
+        Somadic::Logger.debug('DI#stop')
+        @mp.stop
+        #Somadic::Logger.debug('========== refresh_thread.exit')
+        @refresh_thread.exit
+        #Somadic::Logger.debug('========== done')
       end
 
       private

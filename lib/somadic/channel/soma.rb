@@ -4,7 +4,6 @@ module Somadic
       def initialize(options)
         @options = options
         super(options.merge({ url: "http://somafm.com/#{options[:channel]}.pls" }))
-        Somadic::Logger.debug("Soma#initialize: options=#{options}")
       end
 
       # Overrides BaseChannel

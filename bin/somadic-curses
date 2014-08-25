@@ -64,11 +64,8 @@ class Display
     end
 
     # current song
-
-    # clean up soma station names
-    cname = @channel[:name].gsub(/130$/, '')
-    cname.gsub!(/64$/, '')
-    channel_and_track = "[ #{cname} ][ #{cur_song[:track]}"
+    channel_and_track = "[ #{clean_channel_name(@channel[:name])} ]" \
+                        "[ #{cur_song[:track]}"
 
     up = cur_song[:votes][:up]
     down = cur_song[:votes][:down]
@@ -121,6 +118,9 @@ class Display
       cwrite row, 0, line
       row += 1
     end
+    # TODO: this works around the dupe thing @startup, but it shouldn't be
+    # necessary
+    cwrite row, 0, ''
   end
 
   private
@@ -177,6 +177,13 @@ class Display
     h = hours > 0 ? "#{"%d" % hours}:" : ""
     "#{h}#{"%02d" % mins}:#{"%02d" % secs}"
   end
+
+  # Cleans up soma channel names.
+  def clean_channel_name(name)
+    cname = name.gsub(/130$/, '')
+    cname.gsub!(/64$/, '')
+    cname
+  end
 end
 
 Signal.trap("INT") do |sig|
@@ -185,25 +192,26 @@ Signal.trap("INT") do |sig|
 end
 
 @display = Display.new
-options = { cache: nil,
-            cache_min: nil,
-            listeners: [@display] }
+@options = { cache: nil,
+             cache_min: nil,
+             listeners: [@display] }
 
 @optparser = OptionParser.new do |o|
-  o.banner = 'Usage: somadic [options] site channel'
+  o.banner = 'Usage: somadic [options] site:channel [site:channel]'
   o.separator ''
-  o.separator 'The `site` parameter can be di or soma.'
+  o.separator 'The `site` parameter can be di or soma. `channel` should be'
+  o.separator 'a valid channel on that site.'
   o.separator ''
   o.separator 'DI premium channels require an environment variable: ' \
               'DI_FM_PREMIUM_ID.'
   o.separator ''
 
   o.on('-c CACHE_SIZE', '--cache CACHE_SIZE', 'Set the cache size (KB)') do |c|
-    options[:cache] = c
+    @options[:cache] = c
   end
   o.on('-m CACHE_MIN', '--cache-min CACHE_MIN',
        'Set the minimum cache threshold (percent)') do |m|
-    options[:cache_min] = m
+    @options[:cache_min] = m
   end
   o.on('-h', '--help', 'Display this message') { puts o; exit }
 
@@ -216,47 +224,72 @@ def usage
   exit
 end
 
-if ARGV[0].nil? || ARGV[1].nil?
-  usage
-end
-if ARGV[0] != 'di' && ARGV[0] != 'soma'
-  usage
+def next_channel
+  @cur_chan ||= 0
+
+  rv = @channels[@cur_chan]
+  @cur_chan += 1
+  @cur_chan = 0 if @cur_chan == @channels.count
+  rv
 end
 
-options[:channel] = ARGV[1]
-if ARGV[0] == 'di'
-  options[:premium_id] = ENV['DI_FM_PREMIUM_ID']
-  @channel = Somadic::Channel::DI.new(options)
-else
-  @channel = Somadic::Channel::Soma.new(options)
-end
-@channel.start
-
-# keypresses are handled thru a Queue
-keypresses = []
-quitting = false
-while !quitting
-  begin
-    keypresses << @display.kp_queue.pop(non_block: true)
-  rescue ThreadError => te
-    unless te.to_s == "queue empty"
-      Somadic::Logger.error("kp_queue.pop error: #{te}")
-    end
+def start_playing
+  who, what = next_channel.split(':')
+  @options[:channel] = what
+  if who == 'di'
+    @options[:premium_id] = ENV['DI_FM_PREMIUM_ID']
+    @channel = Somadic::Channel::DI.new(@options)
+  else
+    @channel = Somadic::Channel::Soma.new(@options)
   end
-  unless keypresses.empty?
-    keypresses.each do |kp|
-      Somadic::Logger.debug("processing keypress: #{kp}")
-      case kp
-      when 'q'
-        @channel.stop
-        quitting = true
-      when 'r'
-        @display.refresh
+  @channel.start
+end
+
+def start(channels)
+  Somadic::Logger.debug("somadic-curses, started with #{channels}")
+
+  @channels = channels
+  start_playing
+
+  # keypresses are handled thru a Queue
+  keypresses = []
+  quitting = false
+  while !quitting
+    begin
+      keypresses << @display.kp_queue.pop(non_block: true)
+    rescue ThreadError => te
+      unless te.to_s == "queue empty"
+        Somadic::Logger.error("kp_queue.pop error: #{te}")
       end
-      keypresses.delete(kp)
     end
-  end
+    unless keypresses.empty?
+      keypresses.each do |kp|
+        Somadic::Logger.debug("processing keypress: #{kp}")
+        case kp
+        when 'n'
+          @channel.stop
+          who, what = next_channel.split(':')
+          @options[:channel] = what
+          if who == 'di'
+            @channel = Somadic::Channel::DI.new(@options)
+          else
+            @channel = Somadic::Channel::Soma.new(@options)
+          end
+          @channel.start
+        when 'q'
+          @channel.stop
+          quitting = true
+        when 'r'
+          @display.refresh
+        end
+        keypresses.delete(kp)
+      end
+    end
 
-  @display.update
-  sleep 0.2
+    @display.update
+    sleep 0.2
+  end
 end
+
+usage if ARGV[0].nil?
+start(ARGV)
