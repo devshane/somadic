@@ -31,6 +31,13 @@ class Display
     start_keypress_thread
   end
 
+  # Refreshes the display.
+  def refresh
+    Somadic::Logger.debug('Display#refresh')
+    Curses.clear
+    Curses.refresh
+  end
+
   # Updates the display.
   def update(channel = nil, songs = nil)
     @channel = channel if channel
@@ -237,9 +244,10 @@ while !quitting
       Somadic::Logger.debug("processing keypress: #{kp}")
       case kp
       when 'q'
-        Somadic::Logger.debug('quitting!')
         @channel.stop
         quitting = true
+      when 'r'
+        @display.refresh
       end
       keypresses.delete(kp)
     end
