@@ -88,7 +88,7 @@ class Display
     @songs[1..-1].each do |song|
       up = song[:votes][:up]
       down = song[:votes][:down]
-      votes = up + down != 0 ?  ": +#{up}/-#{down} :" : ''
+      votes = up + down != 0 ? ": +#{up}/-#{down} :" : ''
 
       track = "#{song[:track]}"
 
