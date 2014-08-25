@@ -64,7 +64,11 @@ class Display
     end
 
     # current song
-    channel_and_track = "[ #{@channel[:name]} ][ #{cur_song[:track]}"
+
+    # clean up soma station names
+    cname = @channel[:name].gsub(/130$/, '')
+    cname.gsub!(/64$/, '')
+    channel_and_track = "[ #{cname} ][ #{cur_song[:track]}"
 
     up = cur_song[:votes][:up]
     down = cur_song[:votes][:down]
