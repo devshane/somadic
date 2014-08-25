@@ -46,10 +46,7 @@ module Somadic
     # Stops mplayer.
     def stop
       Somadic::Logger.debug("Mplayer#stop")
-      pidlist.each do |pid|
-        Somadic::Logger.debug("Mplayer#stop: sending SIGTERM to pid #{pid}")
-        Process.kill :SIGTERM, pid
-      end
+      `killall mplayer`
     end
 
     private
@@ -62,11 +59,6 @@ module Somadic
       cmd = "#{cmd} -playlist #{@url}"
       cmd = "#{cmd} 2>&1"
       cmd
-    end
-
-    # Gets a list of mplayer PIDs.
-    def pidlist
-      `ps -C #{MPLAYER} -o pid`.split[1..-1].map! { |p| p.to_i }
     end
 
     # Tell everybody who cares that something happened.
