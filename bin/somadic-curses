@@ -57,15 +57,21 @@ class Display
     end
 
     # current song
-    line = "[ #{@channel[:name]} ]"
-    line += "[ #{cur_song[:track]}"
+    channel_and_track = "[ #{@channel[:name]} ][ #{cur_song[:track]}"
+
     up = cur_song[:votes][:up]
     down = cur_song[:votes][:down]
-    stats = up + down != 0 ? " +#{up}/-#{down}" : ''
+    votes = up + down != 0 ? "+#{up}/-#{down}" : ''
 
-    space_len = Curses.cols - stats.length - line.length - remains.length - 2
+    space_len = Curses.cols - votes.length - channel_and_track.length - remains.length - 2
     spaces = space_len > 0 ? ' ' * space_len : ''
-    line += "#{spaces}#{stats} ]#{remains}"
+
+    line = "#{channel_and_track}#{spaces}#{votes} ]#{remains}"
+    over = Curses.cols - line.length
+    if over < 0
+      channel_and_track = channel_and_track[0..over - 1]
+      line = "#{channel_and_track}#{spaces}#{votes} ]#{remains}"
+    end
     cwrite 0, 0, line
 
     # current song progress
@@ -82,23 +88,25 @@ class Display
     @songs[1..-1].each do |song|
       up = song[:votes][:up]
       down = song[:votes][:down]
-      stats = up + down != 0 ?  ": +#{up}/-#{down} :" : ''
+      votes = up + down != 0 ?  ": +#{up}/-#{down} :" : ''
 
-      line = ": #{song[:track]}"
+      track = "#{song[:track]}"
+
       if song[:duration] == 0
         duration = Time.at(song[:started]).strftime('%H:%M:%S')
       else
         duration = format_secs(song[:duration])
       end
-      begin
-        spaces = ' ' * (Curses.cols - line.length - stats.length - duration.length - 3)
-      rescue
-        # TODO: if line.length is too long, truncate it
-        spaces = ''
+
+      space_len = Curses.cols - track.length - votes.length - duration.length - 5
+      spaces = space_len > 0 ? ' ' * space_len : ''
+
+      line = ": #{track}#{spaces}#{votes} #{duration} :"
+      over = Curses.cols - line.length
+      if over < 0
+        track = track[0..over - 1]
+        line = ": #{track}#{spaces}#{votes} #{duration} :"
       end
-      line += spaces
-      line += "#{stats} #{duration}"
-      line += ' :'
       cwrite row, 0, line
       row += 1
     end
