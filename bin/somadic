@@ -11,11 +11,11 @@ class Notification
 
   def update(channel, songs)
     song = songs.first
-    return if song['track'].empty?
+    return if song[:track].empty?
 
-    if song['track'] != @last_song
-      puts "[#{channel[:name]}] #{Time.now.strftime('%H:%M')} #{song['track']}"
-      @last_song = song['track']
+    if song[:track] != @last_song
+      puts "[#{channel[:name]}] #{Time.now.strftime('%H:%M')} #{song[:track]}"
+      @last_song = song[:track]
     end
   end
 end

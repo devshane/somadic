@@ -30,11 +30,11 @@ module Somadic
         songs = aa.refresh_playlist
         # if the current song is not in the playlist, create an entry for it
         # so the track name updates.
-        if songs.first['track'] != @song
-          songs.insert(0, { 'started' => songs.first['started'],
-                            'duration' => -1,
-                            'track' => @song,
-                            'votes' => { 'up' => 0, 'down' => 0 } })
+        if songs.first[:track] != @song
+          songs.insert(0, { started: songs.first[:started],
+                            duration: -1,
+                            track: @song,
+                            votes: { up: 0, down: 0 } })
         end
         @listeners.each do |l|
           l.update(@channel, songs) if l.respond_to?(:update)

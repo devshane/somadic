@@ -5,8 +5,6 @@ require 'curses'
 require 'progress_bar'
 require 'thread'
 
-# TODO: symbolize the @song keys, it's channel[:name] but song['title']
-
 # Monkey-patches ProgressBar so that it displays periods instead of blank
 # spaces.
 class ProgressBar
@@ -43,8 +41,8 @@ class Display
     cur_song = @songs.first
 
     # times
-    start_time = Time.at(cur_song['started'])
-    duration = cur_song['duration']
+    start_time = Time.at(cur_song[:started])
+    duration = cur_song[:duration]
     if duration <= 0
       end_time = nil
       remain_secs = 0
@@ -60,9 +58,9 @@ class Display
 
     # current song
     line = "[ #{@channel[:name]} ]"
-    line += "[ #{cur_song['track']}"
-    up = cur_song['votes']['up']
-    down = cur_song['votes']['down']
+    line += "[ #{cur_song[:track]}"
+    up = cur_song[:votes][:up]
+    down = cur_song[:votes][:down]
     stats = up + down != 0 ? " +#{up}/-#{down}" : ''
 
     space_len = Curses.cols - stats.length - line.length - remains.length - 2
@@ -82,15 +80,15 @@ class Display
     # song history
     row = 2
     @songs[1..-1].each do |song|
-      up = song['votes']['up']
-      down = song['votes']['down']
+      up = song[:votes][:up]
+      down = song[:votes][:down]
       stats = up + down != 0 ?  ": +#{up}/-#{down} :" : ''
 
-      line = ": #{song['track']}"
-      if song['duration'] == 0
-        duration = Time.at(song['started']).strftime('%H:%M:%S')
+      line = ": #{song[:track]}"
+      if song[:duration] == 0
+        duration = Time.at(song[:started]).strftime('%H:%M:%S')
       else
-        duration = format_secs(song['duration'])
+        duration = format_secs(song[:duration])
       end
       begin
         spaces = ' ' * (Curses.cols - line.length - stats.length - duration.length - 3)

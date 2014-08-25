@@ -45,14 +45,14 @@ module Somadic
 
           d = {}
           song[0] = song[0][0..song[0].index('&')-1]if song[0]['&'] # clean hh:mm:ss&nbsp; (Now)
-          d['started'] = Time.parse(song[0]).to_i
-          d['votes'] = {'up' => 0, 'down' => 0}
-          d['duration'] = 0
-          d['artist'] = strip_a(song[1])
-          d['title'] = song[2]
-          d['track'] = "#{d['artist']} - #{d['title']}"
+          d[:started] = Time.parse(song[0]).to_i
+          d[:votes] = {up: 0, down: 0}
+          d[:duration] = 0
+          d[:artist] = strip_a(song[1])
+          d[:title] = song[2]
+          d[:track] = "#{d[:artist]} - #{d[:title]}"
           album = strip_a(song[3])
-          d['title'] += "- #{strip_a(song[3])}" unless album.empty?
+          d[:title] += "- #{strip_a(song[3])}" unless album.empty?
           songs << d
         end
         songs
