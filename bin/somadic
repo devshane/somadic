@@ -285,7 +285,7 @@ def start(channels)
         when 'N'
           @channel.stop
           who = @channel.is_a?(Somadic::Channel::DI) ? 'di' : 'soma'
-          name = @channel.channels.sample[:name]
+          name = @channel.channels.reject { |c| c == @channel }.sample[:name]
           Somadic::Logger.debug("going to random next channel #{who} - #{name}")
           @options[:channel] = name
           if who == 'di'
