@@ -34,7 +34,7 @@ module Somadic
           page = f.read
           chans = page.scan(/\/play\/(.*?)"/).flatten
           chans.each do |c|
-            channels << {id: 0, name: c}
+            channels << {id: 0, name: c} unless c['fw/']
           end
           channels.sort_by! {|k, _| k[:name]}
           channels.uniq! {|k, _| k[:name]}
