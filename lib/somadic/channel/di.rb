@@ -51,6 +51,7 @@ module Somadic
 
       # Loads the channel list.
       def load_channels
+        APICache.logger = Somadic::Logger
         APICache.get('di_fm_channel_list', cache: ONE_DAY, timeout: API_TIMEOUT) do
           Somadic::Logger.debug('DI#load_channels')
           channels = []

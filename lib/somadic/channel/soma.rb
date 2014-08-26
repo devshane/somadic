@@ -26,6 +26,7 @@ module Somadic
       private
 
       def load_channels
+        APICache.logger = Somadic::Logger
         APICache.get('soma_fm_chanel_list', cache: ONE_DAY, timeout: API_TIMEOUT) do
           Somadic::Logger.debug('Soma#load_channels')
           channels = []
