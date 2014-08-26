@@ -96,7 +96,7 @@ class Display
     @songs[1..-1].each do |song|
       up = song[:votes][:up]
       down = song[:votes][:down]
-      votes = up + down != 0 ? ": +#{up}/-#{down} :" : ''
+      votes = up + down != 0 ? " +#{up}/-#{down} :" : ''
 
       if song[:duration] == 0
         duration = Time.at(song[:started]).strftime('%H:%M:%S')
@@ -175,7 +175,7 @@ class Display
     end
     mins = secs / 60
     secs = secs % 60
-    h = hours > 0 ? "#{"%d" % hours}:" : ""
+    h = hours > 0 ? "#{"%1d" % hours}:" : "  "
     "#{h}#{"%02d" % mins}:#{"%02d" % secs}"
   end
 
