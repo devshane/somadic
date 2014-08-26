@@ -1,6 +1,6 @@
 module Somadic
   class BaseChannel
-    attr_reader :channels
+    attr_reader :channels, :song
 
     API_TIMEOUT = 60
     ONE_DAY = 86400

@@ -5,6 +5,24 @@ require 'curses'
 require 'progress_bar'
 require 'thread'
 
+module OS
+  def OS.windows?
+    (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.mac?
+   (/darwin/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.unix?
+    !OS.windows?
+  end
+
+  def OS.linux?
+    OS.unix? and not OS.mac?
+  end
+end
+
 # Monkey-patches ProgressBar so that it displays periods instead of blank
 # spaces.
 class ProgressBar
@@ -299,6 +317,13 @@ def start(channels)
           quitting = true
         when 'r'
           @display.refresh
+        when 's'
+          Somadic::Logger.debug("searching for '#{@channel.song}'")
+          if OS.mac?
+            `open "https://www.google.com/search?safe=off&q=#{@channel.song}"`
+          elsif OS.linux?
+            `xdg-open "https://www.google.com/search?safe=off&q=#{@channel.song}"`
+          end
         end
         keypresses.delete(kp)
       end
