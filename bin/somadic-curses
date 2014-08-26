@@ -266,10 +266,27 @@ def start(channels)
       keypresses.each do |kp|
         Somadic::Logger.debug("processing keypress: #{kp}")
         case kp
+        when 'c'
+          @channel.channels.each do |c|
+            Somadic::Logger.debug("channel: #{c}")
+          end
         when 'n'
           @channel.stop
           who, what = next_channel.split(':')
+          Somadic::Logger.debug("going to next channel #{who} - #{what}")
           @options[:channel] = what
+          if who == 'di'
+            @channel = Somadic::Channel::DI.new(@options)
+          else
+            @channel = Somadic::Channel::Soma.new(@options)
+          end
+          @channel.start
+        when 'N'
+          @channel.stop
+          who = @channel.is_a?(Somadic::Channel::DI) ? 'di' : 'soma'
+          name = @channel.channels.sample[:name]
+          Somadic::Logger.debug("going to random next channel #{who} - #{name}")
+          @options[:channel] = name
           if who == 'di'
             @channel = Somadic::Channel::DI.new(@options)
           else
