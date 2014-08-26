@@ -35,7 +35,7 @@ Install the gem:
 ## Usage
 
 ```
-Usage: somadic [options] site:channel [site:channel...]
+Usage: somadic [options] site:channel [site:channel ...]
 
 The `site` parameter can be di or soma. The `channel` parameter should be a valid channel.
 
@@ -49,19 +49,22 @@ DI premium channels require an environment variable: DI_FM_PREMIUM_ID.
 #### Valid keys
 
 ```
-n - Next site:channel
+n - Next site:channel in list
 N - Pick a random channel from `site`
-r - Refresh the display
 q - Quit
+r - Refresh the display
+s - Search Google for the current track
 ```
 
 #### Examples
 
 ```
 # Listen to breaks on DI
+# Use `N` to go to a random DI channel.
 $ somadic-curses di:breaks
 
 # Listen to breaks, psychill, and secret agent
+# Use `n` to switch between them.
 $ somadic-curses di:breaks di:psychill soma:secretagent
 ```
 
