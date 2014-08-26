@@ -15,7 +15,7 @@ module Somadic
 
       # Observer callback.
       def update(time, song)
-        Somadic::Logger.debug("Soma#update: #{time} - #{song}")
+        @song = song if song
         songs = refresh_playlist
         channel = { id: 0, name: @options[:channel] }
         @listeners.each do |l|
