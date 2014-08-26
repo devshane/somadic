@@ -21,6 +21,8 @@ describe Somadic::Channel::DI do
   it 'can load a channel list' do
     di = Somadic::Channel::DI.new({ channel: 'breaks' })
     expect(di.channels.count).to be > 10
+    expect(di.channels.include?({ id: '15', name: 'breaks' })).to be true
+    expect(di.channels.include?({:id=>"136", :name=>"cosmicdowntempo"})).to be true
   end
 
   it 'can find a channel by name' do

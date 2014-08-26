@@ -2,6 +2,9 @@ module Somadic
   class BaseChannel
     attr_reader :channels
 
+    API_TIMEOUT = 60
+    ONE_DAY = 86400
+
     def initialize(options)
       @url = options[:url]
       playlist = @url.split('/').last
@@ -10,6 +13,8 @@ module Somadic
       @mp = Mplayer.new(options)
       @mp.add_observer(self)
       @listeners = options[:listeners]
+
+      APICache.logger = Somadic::Logger
     end
 
     # Let's go already.

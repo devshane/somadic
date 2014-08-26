@@ -3,6 +3,7 @@ module Somadic
     class Soma < Somadic::BaseChannel
       def initialize(options)
         @options = options
+        @channels = load_channels
         super(options.merge({ url: "http://somafm.com/#{options[:channel]}.pls" }))
       end
 
@@ -23,6 +24,21 @@ module Somadic
       end
 
       private
+
+      def load_channels
+        APICache.get('soma_fm_chanel_list', cache: ONE_DAY, timeout: API_TIMEOUT) do
+          Somadic::Logger.debug('Soma#load_channels')
+          channels = []
+          f = open('http://somafm.com/listen')
+          page = f.read
+          chans = page.scan(/\/play\/(.*?)"/).flatten
+          chans.each do |c|
+            channels << {id: 0, name: c}
+          end
+          channels.sort_by! {|k, _| k[:name]}
+          channels.uniq! {|k, _| k[:name]}
+        end
+      end
 
       def refresh_playlist
         # soma

@@ -7,7 +7,7 @@ module Somadic
         else
           "http://listen.di.fm/public3/#{options[:channel]}.pls"
         end
-        load_channels
+        @channels = load_channels
         super(options.merge({ url: url }))
 
         start_refresh_thread
@@ -44,27 +44,27 @@ module Somadic
       def stop
         Somadic::Logger.debug('DI#stop')
         @mp.stop
-        #Somadic::Logger.debug('========== refresh_thread.exit')
         @refresh_thread.exit
-        #Somadic::Logger.debug('========== done')
       end
 
       private
 
       # Loads the channel list.
       def load_channels
-        Somadic::Logger.debug("DI#load_channels")
-        @channels = []
-        f = open('http://www.di.fm')
-        page = f.read
-        chan_ids = page.scan(/data-channel-id="(\d+)"/).flatten
-        chans = page.scan(/data-tunein-url="http:\/\/www.di.fm\/(.*?)"/).flatten
-        zipped = chan_ids.zip(chans)
-        zipped.each do |z|
-          @channels << {id: z[0], name: z[1]}
+        APICache.get('di_fm_channel_list', cache: ONE_DAY, timeout: API_TIMEOUT) do
+          Somadic::Logger.debug('DI#load_channels')
+          channels = []
+          f = open('http://www.di.fm')
+          page = f.read
+          chan_ids = page.scan(/data-channel-id="(\d+)"/).flatten
+          chans = page.scan(/data-tunein-url="http:\/\/www.di.fm\/(.*?)"/).flatten
+          zipped = chan_ids.zip(chans)
+          zipped.each do |z|
+            channels << {id: z[0], name: z[1]}
+          end
+          channels.sort_by! {|k, _| k[:name]}
+          channels.uniq! {|k, _| k[:name]}
         end
-        @channels.sort_by! {|k, _| k[:name]}
-        @channels.uniq! {|k, _| k[:name]}
       end
 
       def start_refresh_thread

@@ -17,6 +17,10 @@ module Somadic
       instance.error(msg)
     end
 
+    def self.warn(msg)
+      instance.warn(msg)
+    end
+
     def self.instance
       ::FileUtils.mkdir_p(LOG_PATH) unless File.directory?(LOG_PATH)
       l = MonoLogger.new(File.join(LOG_PATH, LOG_FILE), 'daily')

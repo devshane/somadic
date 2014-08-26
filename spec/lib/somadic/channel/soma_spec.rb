@@ -17,4 +17,11 @@ describe Somadic::Channel::Soma do
   end
 
   it 'blows up with a bad channel'
+
+  it 'can get a channel list' do
+    soma = Somadic::Channel::Soma.new({ channel: 'secretagent130' })
+    expect(soma.channels.count).to be > 0
+    expect(soma.channels.include?({ id: 0, name: 'secretagent130' })).to be true
+    expect(soma.channels.include?({ id: 0, name: 'groovesalad' })).to be true
+  end
 end

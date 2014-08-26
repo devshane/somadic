@@ -2,6 +2,7 @@ require 'mono_logger'
 require 'observer'
 require 'open-uri'
 require 'json'
+require 'api_cache'
 
 module Somadic
   # Your code goes here...
