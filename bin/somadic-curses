@@ -72,7 +72,7 @@ class Display
     votes = up + down != 0 ? "+#{up}/-#{down}" : ''
 
     space_len = Curses.cols - votes.length - channel_and_track.length - remains.length - 2
-    spaces = space_len > 0 ? ' ' * space_len : ''
+    spaces = space_len > 0 ? ' ' * space_len : ' '
 
     line = "#{channel_and_track}#{spaces}#{votes} ]#{remains}"
     over = Curses.cols - line.length
@@ -98,22 +98,23 @@ class Display
       down = song[:votes][:down]
       votes = up + down != 0 ? ": +#{up}/-#{down} :" : ''
 
-      track = "#{song[:track]}"
-
       if song[:duration] == 0
         duration = Time.at(song[:started]).strftime('%H:%M:%S')
       else
         duration = format_secs(song[:duration])
       end
 
-      space_len = Curses.cols - track.length - votes.length - duration.length - 5
+      track = ": #{song[:track]}"
+      votes_and_duration = "#{votes} #{duration} :"
+
+      space_len = Curses.cols - track.length - votes_and_duration.length
       spaces = space_len > 0 ? ' ' * space_len : ''
 
-      line = ": #{track}#{spaces}#{votes} #{duration} :"
-      over = Curses.cols - line.length
-      if over < 0
-        track = track[0..over - 1]
-        line = ": #{track}#{spaces}#{votes} #{duration} :"
+      line = "#{track}#{spaces}#{votes_and_duration}"
+      if space_len < 0
+        spaces = ' '
+        track = track[0..space_len - 2]
+        line = "#{track}#{spaces}#{votes_and_duration}"
       end
       cwrite row, 0, line
       row += 1
