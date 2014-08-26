@@ -3,17 +3,6 @@
 Somadic is a bare-bones terminal-based player for somafm.com and di.fm. It uses `mplayer` to
 do the heavy lifting.
 
-There are two clients: `somadic` is a simple single-line display:
-
-```
-$ somadic soma secretagent130
-
-[secretagent130] 23:13 Goblin - Profondo Rosso Death Dies M32
-[secretagent130] 23:18 Henry Mancini - Llujon [DJ Cam Remaster]
-```
-
-`somadic-curses` displays more information like up/down votes, progress, and track times.
-
 ```
 $ somadic-curses di breaks
 
@@ -46,7 +35,7 @@ Install the gem:
 ## Usage
 
 ```
-Usage: somadic [options] site channel
+Usage: somadic [options] site:channel [site:channel...]
 
 The `site` parameter can be di or soma. The `channel` parameter should be a valid channel.
 
@@ -57,14 +46,23 @@ DI premium channels require an environment variable: DI_FM_PREMIUM_ID.
     -h, --help                       Display this message
 ```
 
+#### Valid keys
+
+```
+n - Next site:channel
+N - Pick a random channel from `site`
+r - Refresh the display
+q - Quit
+```
+
 #### Examples
 
 ```
 # Listen to breaks on DI
-$ somadic di breaks
+$ somadic-curses di:breaks
 
-# Or to use the Curses client, which is a bit more featured:
-$ somadic-curses di breaks
+# Listen to breaks, psychill, and secret agent
+$ somadic-curses di:breaks di:psychill soma:secretagent
 ```
 
 ## Contributing
