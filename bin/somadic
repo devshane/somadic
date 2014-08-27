@@ -73,6 +73,7 @@ class Display
     return if @channel.nil? || @songs.nil?
 
     cur_song = @songs.first
+    return if cur_song.nil?
 
     # times
     start_time = Time.at(cur_song[:started]) rescue Time.now
@@ -263,8 +264,8 @@ end
 def start_playing
   who, what = next_channel.split(':')
   @options[:channel] = what
+  @options[:premium_id] = ENV['DI_FM_PREMIUM_ID']
   if who == 'di'
-    @options[:premium_id] = ENV['DI_FM_PREMIUM_ID']
     @channel = Somadic::Channel::DI.new(@options)
   else
     @channel = Somadic::Channel::Soma.new(@options)
