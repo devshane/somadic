@@ -4,6 +4,7 @@ require 'somadic'
 require 'curses'
 require 'progress_bar'
 require 'thread'
+require 'chronic'
 
 module OS
   def OS.windows?
@@ -39,7 +40,7 @@ end
 class Display
   include Curses
 
-  attr_accessor :kp_queue
+  attr_accessor :kp_queue, :stopped
 
   def initialize
     curses_init
@@ -58,6 +59,14 @@ class Display
 
   # Updates the display.
   def update(channel = nil, songs = nil)
+    if @stopped
+      line = '[ Paused'
+      line += ' ' * (Curses.cols - line.length - 1)
+      line += ']'
+      cwrite 0, 0, line
+      return
+    end
+
     @channel = channel if channel
     @songs = songs if songs
 
@@ -66,37 +75,36 @@ class Display
     cur_song = @songs.first
 
     # times
-    start_time = Time.at(cur_song[:started])
+    start_time = Time.at(cur_song[:started]) rescue Time.now
     duration = cur_song[:duration]
     if duration <= 0
       end_time = nil
-      remain_secs = 0
+      elapsed = (Time.now - start_time).to_i
       remains = duration < 0 ?
-                '[ Updating ]' :
-                "[ #{start_time.strftime('%H:%M:%S')} ]"
+                '][ Updating ]' :
+                "][ #{format_secs(elapsed)} ]"
     else
       end_time = start_time + duration
-      remain_secs = (end_time - Time.now).to_i
-      remains = "[ #{format_secs((Time.now - start_time).to_i)} " \
+      remains = "][ #{format_secs((Time.now - start_time).to_i)} " \
                 "/ #{format_secs(duration)} ]"
     end
 
     # current song
-    channel_and_track = "[ #{clean_channel_name(@channel[:name])} ]" \
-                        "[ #{cur_song[:track]}"
+    track = "#{cur_song[:artist]} > #{cur_song[:title]}"
+    channel_and_track = "[ #{clean_channel_name(@channel[:name])} > #{track}"
 
     up = cur_song[:votes][:up]
     down = cur_song[:votes][:down]
     votes = up + down != 0 ? "+#{up}/-#{down}" : ''
 
-    space_len = Curses.cols - votes.length - channel_and_track.length - remains.length - 2
+    space_len = Curses.cols - votes.length - channel_and_track.length - remains.length - 1
     spaces = space_len > 0 ? ' ' * space_len : ' '
 
-    line = "#{channel_and_track}#{spaces}#{votes} ]#{remains}"
+    line = "#{channel_and_track}#{spaces}#{votes} #{remains}"
     over = Curses.cols - line.length
     if over < 0
       channel_and_track = channel_and_track[0..over - 1]
-      line = "#{channel_and_track}#{spaces}#{votes} ]#{remains}"
+      line = "#{channel_and_track}#{spaces}#{votes} #{remains}"
     end
     cwrite 0, 0, line
 
@@ -273,6 +281,7 @@ def start(channels)
   # keypresses are handled thru a Queue
   keypresses = []
   quitting = false
+  stopped = false
   while !quitting
     begin
       keypresses << @display.kp_queue.pop(non_block: true)
@@ -285,6 +294,9 @@ def start(channels)
       keypresses.each do |kp|
         Somadic::Logger.debug("processing keypress: #{kp}")
         case kp
+        when ' '
+          @channel.send(stopped ? :start : :stop)
+          stopped = !stopped
         when 'c'
           @channel.channels.each do |c|
             Somadic::Logger.debug("channel: #{c}")
@@ -329,6 +341,7 @@ def start(channels)
       end
     end
 
+    @display.stopped = stopped
     @display.update
     sleep 0.2
   end

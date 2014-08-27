@@ -29,6 +29,10 @@ module Somadic
       @mp.stop
     end
 
+    def stopped?
+      @mp.stopped?
+    end
+
     # Observer callback, and also one of the simplest displays possible.
     def update(time, song)
       Somadic::Logger.debug("BaseChannel#update: #{time} - #{song}")

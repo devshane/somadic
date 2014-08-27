@@ -34,7 +34,9 @@ module Somadic
           page = f.read
           chans = page.scan(/\/play\/(.*?)"/).flatten
           chans.each do |c|
-            channels << {id: 0, name: c} unless c['fw/']
+            unless c.start_with?('fw/') || c.gsub(/\d+$/, '') != c
+              channels << {id: 0, name: c}
+            end
           end
           channels.sort_by! {|k, _| k[:name]}
           channels.uniq! {|k, _| k[:name]}
@@ -61,7 +63,11 @@ module Somadic
 
           d = {}
           song[0] = song[0][0..song[0].index('&')-1]if song[0]['&'] # clean hh:mm:ss&nbsp; (Now)
-          d[:started] = Time.parse(song[0]).to_i
+
+          pt = Time.parse(song[0])
+          local = Chronic.parse(pt.to_s.gsub(/-\d+$/, '-0700'))
+          d[:started] = local.to_i
+
           d[:votes] = {up: 0, down: 0}
           d[:duration] = 0
           d[:artist] = strip_a(song[1])

@@ -49,11 +49,12 @@ DI premium channels require an environment variable: DI_FM_PREMIUM_ID.
 #### Valid keys
 
 ```
-n - Next site:channel in list
-N - Pick a random channel from `site`
-q - Quit
-r - Refresh the display
-s - Search Google for the current track
+n       - Next site:channel in list
+N       - Pick a random channel from `site`
+q       - Quit
+r       - Refresh the display
+s       - Search Google for the current track
+<space> - Start/stop playing current channel
 ```
 
 #### Examples

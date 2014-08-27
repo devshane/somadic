@@ -20,10 +20,12 @@ module Somadic
       @url = options[:url]
       @cache = options[:cache]
       @cache_min =options[:cache_min]
+      @stopped = true
     end
 
     # Starts mplayer on a new thread.
     def start
+      @stopped = false
       @player_thread = Thread.new do
         cmd = command
         Somadic::Logger.debug("Mplayer#start: popen #{cmd}")
@@ -46,7 +48,12 @@ module Somadic
     # Stops mplayer.
     def stop
       Somadic::Logger.debug("Mplayer#stop")
+      @stopped = true
       `killall mplayer`
+    end
+
+    def stopped?
+      @stopped
     end
 
     private
