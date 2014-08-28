@@ -72,7 +72,7 @@ module Somadic
         @refresh_thread = Thread.new do
           loop do
             update(Time.now, nil)
-            sleep 10
+            sleep 5
           end
         end
       end

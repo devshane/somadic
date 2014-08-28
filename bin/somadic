@@ -107,7 +107,7 @@ class Display
       channel_and_track = channel_and_track[0..over - 1]
       line = "#{channel_and_track}#{spaces}#{votes} #{remains}"
     end
-    cwrite 0, 0, line
+    cwrite 0, 0, line, color_pair(COLOR_WHITE)|A_REVERSE
 
     # current song progress
     if duration <= 0
@@ -176,13 +176,22 @@ class Display
     Curses.curs_set(0)
     Curses.init_screen
     Curses.timeout = 0
+
+    Curses.start_color
+    Curses.init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_BLACK)
   end
 
   # Curses write
-  def cwrite(row, col, message)
+  def cwrite(row, col, message, color = nil)
     Curses.setpos(row, col)
     Curses.clrtoeol
-    Curses.addstr(message)
+
+    if color
+      Curses.attron(color) { Curses.addstr(message) }
+    else
+      Curses.addstr(message)
+    end
+
     Curses.refresh
   end
 
@@ -276,7 +285,28 @@ end
 def start(channels)
   Somadic::Logger.debug("somadic-curses, started with #{channels}")
 
-  @channels = channels
+  @channels = []
+  channels.each do |channel|
+    # presets
+    case channel
+    when 'chill'
+      @channels.concat(['soma:groovesalad', 'soma:lush', 'soma:spacestation',
+                        'soma:missioncontrol', 'soma:digitalis',
+                        'soma:deepspaceone', 'soma:dronezone',
+                        'soma:beatblender', 'soma:sf1033',
+                        'di:chillout', 'di:chilloutdreams', 'di:vocalchillout',
+                        'di:chillstep','di:chillhop', 'di:cosmicdowntempo',
+                        'di:spacemusic', 'di:ambient', 'di:psychill',
+                        'di:psybient', 'di:futuregarage', 'di:downtempolounge',
+                        'di:lounge'])
+    when 'lounge'
+      @channels.concat(['di:lounge', 'di:downtempolounge', 'di:vocallounge',
+                        'soma:illstreet'])
+    else
+      @channels << channel
+    end
+  end
+
   start_playing
 
   # keypresses are handled thru a Queue
