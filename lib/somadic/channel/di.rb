@@ -9,8 +9,6 @@ module Somadic
         end
         @channels = load_channels
         super(options.merge({ url: url }))
-
-        start_refresh_thread
       end
 
       # Overrides BaseChannel
@@ -23,31 +21,49 @@ module Somadic
       end
 
       # Observer callback.
+      #
+      # TODO: time isn't used, song isn't required
       def update(time, song)
+        Somadic::Logger.debug('DI#update')
         @song = song if song
         aa = Somadic::AudioAddict.new(@channel[:id])
         songs = aa.refresh_playlist
-        # if the current song is not in the playlist, create an entry for it
-        # so the track name updates.
         if songs.first[:track] != @song
-          songs.insert(0, { started: songs.first[:started],
-                            duration: -1,
-                            track: @song,
-                            votes: { up: 0, down: 0 } })
+          # try again
+          songs = poll_for_song
         end
         @listeners.each do |l|
+          Somadic::Logger.debug("DI#update: updating listener #{l}")
           l.update(@channel, songs) if l.respond_to?(:update)
         end
+      rescue => e
+        Somadic::Logger.error("DI#update: error #{e}")
       end
 
       # Overrides BaseChannel.
       def stop
         Somadic::Logger.debug('DI#stop')
         @mp.stop
-        @refresh_thread.exit
       end
 
       private
+
+      def poll_for_song
+        Somadic::Logger.debug('poll_for_song')
+        aa = Somadic::AudioAddict.new(@channel[:id])
+        songs = aa.refresh_playlist
+        attempts = 0
+        while songs.first[:track] != @song
+          Somadic::Logger.debug("DI#poll_for_song[##{attempts}]: #{songs.first[:track]} != #{@song}")
+
+          break if attempts > 5
+
+          sleep attempts > 2 ? 5 : 2
+          songs = aa.refresh_playlist
+          attempts += 1
+        end
+        songs
+      end
 
       # Loads the channel list.
       def load_channels
@@ -65,15 +81,6 @@ module Somadic
           end
           channels.sort_by! {|k, _| k[:name]}
           channels.uniq! {|k, _| k[:name]}
-        end
-      end
-
-      def start_refresh_thread
-        @refresh_thread = Thread.new do
-          loop do
-            update(Time.now, nil)
-            sleep 5
-          end
         end
       end
     end

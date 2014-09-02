@@ -5,6 +5,7 @@ require 'curses'
 require 'progress_bar'
 require 'thread'
 require 'chronic'
+require 'readline'
 
 module OS
   def OS.windows?
@@ -40,7 +41,7 @@ end
 class Display
   include Curses
 
-  attr_accessor :kp_queue, :stopped
+  attr_accessor :kp_queue, :stopped, :search_phrase, :inputting
 
   def initialize
     curses_init
@@ -57,16 +58,22 @@ class Display
     Curses.refresh
   end
 
+  def search(channel)
+    #cpos Curses.lines - 1, 0
+    @inputting = true
+    Curses.close_screen
+    @search_phrase = Readline.readline('Go to channel: ', true)
+    @search_phrase = '' unless @search_phrase[':']
+    cwrite Curses.lines - 1, 0, ''
+    @inputting = false
+  end
+
+  def clear_search
+    cwrite Curses.lines - 1, 0, ''
+  end
+
   # Updates the display.
   def update(channel = nil, songs = nil)
-    if @stopped
-      line = '[ Paused'
-      line += ' ' * (Curses.cols - line.length - 1)
-      line += ']'
-      cwrite 0, 0, line
-      return
-    end
-
     @channel = channel if channel
     @songs = songs if songs
 
@@ -78,7 +85,11 @@ class Display
     # times
     start_time = Time.at(cur_song[:started]) rescue Time.now
     duration = cur_song[:duration]
-    if duration <= 0
+    if @stopped
+      end_time = nil
+      elapsed = (Time.now - start_time).to_i
+      remains = '][ Paused ]'
+    elsif duration <= 0
       end_time = nil
       elapsed = (Time.now - start_time).to_i
       remains = duration < 0 ?
@@ -91,7 +102,7 @@ class Display
     end
 
     # current song
-    track = "#{cur_song[:artist]} > #{cur_song[:title]}"
+    track = cur_song[:track]
     channel_and_track = "[ #{clean_channel_name(@channel[:name])} > #{track}"
 
     up = cur_song[:votes][:up]
@@ -107,16 +118,18 @@ class Display
       channel_and_track = channel_and_track[0..over - 1]
       line = "#{channel_and_track}#{spaces}#{votes} #{remains}"
     end
-    cwrite 0, 0, line, color_pair(COLOR_WHITE)|A_REVERSE
+    cwrite 0, 0, line, curses_reverse
 
     # current song progress
-    if duration <= 0
-      @bar.max = @bar.count = 100
-    else
-      @bar.max = duration
-      @bar.count = (Time.now - start_time).to_i
+    unless @stopped
+      if duration <= 0
+        @bar.max = @bar.count = 100
+      else
+        @bar.max = duration
+        @bar.count = (Time.now - start_time).to_i
+      end
+      cwrite 1, 0, @bar.to_s, curses_bold
     end
-    cwrite 1, 0, @bar.to_s
 
     # song history
     row = 2
@@ -143,12 +156,13 @@ class Display
         track = track[0..space_len - 2]
         line = "#{track}#{spaces}#{votes_and_duration}"
       end
-      cwrite row, 0, line
+      cwrite row, 0, line, curses_dim
       row += 1
     end
     # TODO: this works around the dupe thing @startup, but it shouldn't be
     # necessary
     cwrite row, 0, ''
+    cpos Curses.lines - 1, 0
   end
 
   private
@@ -156,28 +170,24 @@ class Display
   def start_keypress_thread
     Thread.new do
       loop do
-        ch = Curses.getch
-        if ch
-          Somadic::Logger.debug("start_keypress_thread: adding #{ch}")
-          begin
-            @kp_queue << ch
-          rescue => e
-            Somadic::Logger.error("start_keypress_thread: error pushing to queue: #{e}")
-          end
+        unless @inputting
+          ch = Curses.getch
+          @kp_queue << ch if ch
         end
-        sleep 0.2
+        sleep 0.1
       end
     end
   end
 
   # Curses init
   def curses_init
-    Curses.noecho
-    Curses.curs_set(0)
-    Curses.init_screen
-    Curses.timeout = 0
+    #Curses.noecho
+    #Curses.curs_set(0)
+    Curses.timeout = -1
 
+    Curses.init_screen
     Curses.start_color
+
     Curses.init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_BLACK)
   end
 
@@ -199,6 +209,23 @@ class Display
   def cpos(row, col)
     Curses.setpos(row, col)
     Curses.refresh
+  end
+
+  # Colors/styles.
+  def curses_bold
+    curses_white|A_BOLD
+  end
+
+  def curses_reverse
+    curses_white|A_REVERSE
+  end
+
+  def curses_dim
+    curses_white|A_DIM
+  end
+
+  def curses_white
+    color_pair(COLOR_WHITE)
   end
 
   # Formats `seconds` to hours, mins, secs.
@@ -323,49 +350,29 @@ def start(channels)
     end
     unless keypresses.empty?
       keypresses.each do |kp|
-        Somadic::Logger.debug("processing keypress: #{kp}")
+        # Somadic::Logger.debug("kp: #{kp} (a #{kp.class}) (searching=#{searching})")
         case kp
         when ' '
           @channel.send(stopped ? :start : :stop)
           stopped = !stopped
         when 'c'
-          @channel.channels.each do |c|
-            Somadic::Logger.debug("channel: #{c}")
-          end
+          dump_channels
         when 'n'
-          @channel.stop
-          who, what = next_channel.split(':')
-          Somadic::Logger.debug("going to next channel #{who} - #{what}")
-          @options[:channel] = what
-          if who == 'di'
-            @channel = Somadic::Channel::DI.new(@options)
-          else
-            @channel = Somadic::Channel::Soma.new(@options)
-          end
-          @channel.start
+          goto_next_channel
         when 'N'
-          @channel.stop
-          who = @channel.is_a?(Somadic::Channel::DI) ? 'di' : 'soma'
-          name = @channel.channels.reject { |c| c == @channel }.sample[:name]
-          Somadic::Logger.debug("going to random next channel #{who} - #{name}")
-          @options[:channel] = name
-          if who == 'di'
-            @channel = Somadic::Channel::DI.new(@options)
-          else
-            @channel = Somadic::Channel::Soma.new(@options)
-          end
-          @channel.start
+          goto_next_channel_random
         when 'q'
           @channel.stop
           quitting = true
         when 'r'
           @display.refresh
         when 's'
-          Somadic::Logger.debug("searching for '#{@channel.song}'")
-          if OS.mac?
-            `open "https://www.google.com/search?safe=off&q=#{@channel.song}"`
-          elsif OS.linux?
-            `xdg-open "https://www.google.com/search?safe=off&q=#{@channel.song}"`
+          search
+        when '/'
+          @display.search(@channel)
+          if @display.search_phrase
+            Somadic::Logger.debug("searching: #{@display.search_phrase}")
+            goto_channel(@display.search_phrase)
           end
         end
         keypresses.delete(kp)
@@ -374,7 +381,45 @@ def start(channels)
 
     @display.stopped = stopped
     @display.update
-    sleep 0.2
+    sleep 0.1
+  end
+end
+
+def dump_channels
+  @channel.channels.each do |c|
+    Somadic::Logger.debug("channel: #{c}")
+  end
+end
+
+def goto_channel(channel)
+  @channel.stop
+  who, what = channel.split(':')
+  Somadic::Logger.debug("goto_channel: going to #{who}:#{what}")
+  @options[:channel] = what
+  if who == 'di'
+    @channel = Somadic::Channel::DI.new(@options)
+  else
+    @channel = Somadic::Channel::Soma.new(@options)
+  end
+  @channel.start
+end
+
+def goto_next_channel
+  goto_channel(next_channel)
+end
+
+def goto_next_channel_random
+  who = @channel.is_a?(Somadic::Channel::DI) ? 'di' : 'soma'
+  what = @channel.channels.reject { |c| c == @channel }.sample[:name]
+  goto_channel("#{who}:#{what}")
+end
+
+def search
+  Somadic::Logger.debug("searching for '#{@channel.song}'")
+  if OS.mac?
+    `open "https://www.google.com/search?safe=off&q=#{@channel.song}"`
+  elsif OS.linux?
+    `xdg-open "https://www.google.com/search?safe=off&q=#{@channel.song}"`
   end
 end
 

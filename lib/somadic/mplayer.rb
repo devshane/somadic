@@ -34,15 +34,21 @@ module Somadic
           line = pipe.readline.chomp
           if line['Starting playback']
             Somadic::Logger.debug("Mplayer#pipe: #{line}")
-          elsif line['ICY']
-            Somadic::Logger.debug("Mplayer#pipe: #{line}")
-            _, v = line.split(';')[0].split('=')
-            song = v[1..-2]
+          elsif line.start_with?('ICY ')
+            begin
+              Somadic::Logger.debug("Mplayer#pipe: #{line}")
+              _, v = line.split(';')[0].split('=')
+              song = v[1..-2]
+            rescue Exception => e
+              Somadic::Logger.debug("unicode fuckup: #{e}")
+            end
             notify(song)
           end
         end
         pipe.close
       end
+    rescue => e
+      Somadic::Logger.error("Mplayer#start: error #{e}")
     end
 
     # Stops mplayer.
