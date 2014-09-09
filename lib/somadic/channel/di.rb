@@ -24,7 +24,6 @@ module Somadic
       #
       # TODO: time isn't used, song isn't required
       def update(time, song)
-        Somadic::Logger.debug('DI#update')
         @song = song if song
         aa = Somadic::AudioAddict.new(@channel[:id])
         songs = aa.refresh_playlist
@@ -49,18 +48,14 @@ module Somadic
       private
 
       def poll_for_song
-        Somadic::Logger.debug('poll_for_song')
         aa = Somadic::AudioAddict.new(@channel[:id])
         songs = aa.refresh_playlist
-        attempts = 0
+        one_minute_from_now = Time.now + 1
         while songs.first[:track] != @song
-          Somadic::Logger.debug("DI#poll_for_song[##{attempts}]: #{songs.first[:track]} != #{@song}")
-
-          break if attempts > 5
-
-          sleep attempts > 2 ? 5 : 2
+          Somadic::Logger.debug("DI#poll_for_song: #{songs.first[:track]} != #{@song}")
+          break if Time.now > one_minute_from_now
+          sleep one_minute_from_now - Time.now < 15 ? 2 : 5
           songs = aa.refresh_playlist
-          attempts += 1
         end
         songs
       end

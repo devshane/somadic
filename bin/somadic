@@ -6,6 +6,9 @@ require 'progress_bar'
 require 'thread'
 require 'chronic'
 require 'readline'
+require 'yaml'
+
+SOMADIC_PATH = ENV['HOME'] + '/.somadic'
 
 module OS
   def OS.windows?
@@ -41,6 +44,7 @@ end
 class Display
   include Curses
 
+  attr_reader :channel
   attr_accessor :kp_queue, :stopped, :search_phrase, :inputting
 
   def initialize
@@ -133,7 +137,7 @@ class Display
 
     # song history
     row = 2
-    @songs[1..-1].each do |song|
+    @songs[1..6].each do |song|
       up = song[:votes][:up]
       down = song[:votes][:down]
       votes = up + down != 0 ? " +#{up}/-#{down} :" : ''
@@ -314,23 +318,16 @@ def start(channels)
 
   @channels = []
   channels.each do |channel|
-    # presets
-    case channel
-    when 'chill'
-      @channels.concat(['soma:groovesalad', 'soma:lush', 'soma:spacestation',
-                        'soma:missioncontrol', 'soma:digitalis',
-                        'soma:deepspaceone', 'soma:dronezone',
-                        'soma:beatblender', 'soma:sf1033',
-                        'di:chillout', 'di:chilloutdreams', 'di:vocalchillout',
-                        'di:chillstep','di:chillhop', 'di:cosmicdowntempo',
-                        'di:spacemusic', 'di:ambient', 'di:psychill',
-                        'di:psybient', 'di:futuregarage', 'di:downtempolounge',
-                        'di:lounge'])
-    when 'lounge'
-      @channels.concat(['di:lounge', 'di:downtempolounge', 'di:vocallounge',
-                        'soma:illstreet'])
-    else
+    if channel[':']
       @channels << channel
+    else
+      # is there a preset file?
+      fn = File.join(SOMADIC_PATH, 'presets', "#{channel}.yaml")
+      if File.exist?(fn)
+        YAML.load_file(fn).each { |c| @channels << c }
+      else
+        fail ArgumentError, "`#{channel}` is not a valid channel or preset."
+      end
     end
   end
 
@@ -410,7 +407,7 @@ end
 
 def goto_next_channel_random
   who = @channel.is_a?(Somadic::Channel::DI) ? 'di' : 'soma'
-  what = @channel.channels.reject { |c| c == @channel }.sample[:name]
+  what = @channel.channels.reject { |c| c[:name] == @display.channel[:name] }.sample[:name]
   goto_channel("#{who}:#{what}")
 end
 

@@ -8,7 +8,8 @@ module Somadic
     def initialize(options)
       @url = options[:url]
       playlist = @url.split('/').last
-      @channel = find_channel(playlist[0..playlist.index('.pls') - 1])
+      name = playlist[0..playlist.index('.pls') - 1]
+      @channel = find_channel(name)
 
       @mp = Mplayer.new(options)
       @mp.add_observer(self)
