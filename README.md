@@ -17,17 +17,9 @@ $ somadic-curses di:breaks
 
 ## Installation
 
-Clone the repo:
-
-    $ git clone https://github.com/devshane/somadic.git
-
-Build the gem:
-
-    $ gem build somadic.gemspec
-
-Install the gem:
-
-    $ gem install somadic-0.0.1.gem
+```
+$ gem install somadic
+```
 
 ## Usage
 
