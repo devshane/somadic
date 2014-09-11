@@ -58,6 +58,25 @@ s       - Search Google for the current track
 /       - Goto site:channel
 ```
 
+#### Presets
+
+You can create preset files rather than listing multiple channels on the command line. Create
+a YAML file in `~/.somadic/presets`, say `chill.yaml`, with the following content:
+
+```
+---
+- di:breaks
+- soma:secretagent
+- di:psychill
+- soma:lush
+```
+
+You can then start somadic with the preset's name:
+
+```
+$ somadic chill
+```
+
 #### Examples
 
 **Listen to breaks on DI**
