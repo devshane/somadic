@@ -1,7 +1,7 @@
 # Somadic
 
-Somadic is a bare-bones terminal-based player for somafm.com and di.fm. It uses `mplayer` to
-do the heavy lifting.
+Somadic is a bare-bones terminal-based player for [somafm.com](http://somafm.com) and [di.fm](http://di.fm). 
+It uses `mplayer` to do the heavy lifting.
 
 ```
 $ somadic-curses di:breaks
