@@ -13,9 +13,6 @@ $ somadic-curses di:breaks
 : Benny Benassi - Satisfaction (DirTy MaN Mix)                                     04:40 :
 : Vetoo - Recall (Refracture Remix)                                                05:40 :
 : Firebeatz feat Schella - Dear New York (Barrera Breaks Mix)                      05:07 :
-: Quade - Quade Character Dephicit Remix Original Mix                              04:54 :
-: Ils - 589027 Lone Riders Def Inc  Remix                                : +1/-0 : 06:48 :
-
 ```
 
 ## Installation
@@ -35,9 +32,12 @@ Install the gem:
 ## Usage
 
 ```
-Usage: somadic [options] site:channel [site:channel ...]
+Usage: somadic [options] [preset_name | [site1:channel1 ...]]
 
-The `site` parameter can be di or soma. The `channel` parameter should be a valid channel.
+You can specify either a `preset_name` or an arbitrary list of `site:channel` identifiers.
+
+  site: either `di` or `soma`
+  channel: a valid channel on `site`
 
 DI premium channels require an environment variable: DI_FM_PREMIUM_ID.
 
@@ -55,18 +55,24 @@ q       - Quit
 r       - Refresh the display
 s       - Search Google for the current track
 <space> - Start/stop playing current channel
+/       - Goto site:channel
 ```
 
 #### Examples
 
+**Listen to breaks on DI**
 ```
-# Listen to breaks on DI
-# Use `N` to go to a random DI channel.
-$ somadic-curses di:breaks
+$ somadic di:breaks
+```
 
-# Listen to breaks, psychill, and secret agent
-# Use `n` to switch between them.
-$ somadic-curses di:breaks di:psychill soma:secretagent
+**Listen to breaks, psychill, and secret agent**
+```
+$ somadic di:breaks di:psychill soma:secretagent
+```
+
+**Listen to the chill preset (assumes a ~/.somadic/presets/chill.yaml file)**
+```
+$ somadic chill
 ```
 
 ## Contributing
