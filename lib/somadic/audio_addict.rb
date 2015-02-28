@@ -7,9 +7,7 @@ module Somadic
 
     def refresh_playlist
       page = open(@url).read
-      Somadic::Logger.debug("page=#{page}")
       data = JSON.parse(page[page.index("(") + 1..-3])
-
       symbolized_data = []
       data.each { |d| symbolized_data << symbolize_keys(d) }
       @songs = symbolized_data.keep_if { |d| d[:title] }
