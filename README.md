@@ -4,7 +4,7 @@ Somadic is a bare-bones terminal-based player for [somafm.com](http://somafm.com
 It uses `mplayer` to do the heavy lifting.
 
 ```
-$ somadic-curses di:breaks
+$ somadic di:breaks
 
 [ breaks ][ Rave Channel - Te Quiero (Amase Breaks Mix)                 ][ 00:25 / 07:38 ]
 [######..................................................................................]
