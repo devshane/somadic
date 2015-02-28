@@ -1,3 +1,5 @@
+require 'pp'
+
 module Somadic
   module Channel
     class DI < Somadic::BaseChannel
@@ -14,9 +16,7 @@ module Somadic
       # Overrides BaseChannel
       def find_channel(name)
         Somadic::Logger.debug("DI#find_channel(#{name})")
-        @channels.each do |c|
-          return c if c[:name] == name
-        end
+        @channels.each { |c| return c if c[:name] == name }
         nil
       end
 
@@ -24,6 +24,8 @@ module Somadic
       #
       # TODO: time isn't used, song isn't required
       def update(time, song)
+        return unless @channel
+
         @song = song if song
         aa = Somadic::AudioAddict.new(@channel[:id])
         songs = aa.refresh_playlist
@@ -66,16 +68,12 @@ module Somadic
         APICache.get('di_fm_channel_list', cache: ONE_DAY, timeout: API_TIMEOUT) do
           Somadic::Logger.debug('DI#load_channels')
           channels = []
-          f = open('http://www.di.fm')
-          page = f.read
-          chan_ids = page.scan(/data-channel-id="(\d+)"/).flatten
-          chans = page.scan(/data-tunein-url="http:\/\/www.di.fm\/(.*?)"/).flatten
-          zipped = chan_ids.zip(chans)
-          zipped.each do |z|
-            channels << {id: z[0], name: z[1]}
-          end
-          channels.sort_by! {|k, _| k[:name]}
-          channels.uniq! {|k, _| k[:name]}
+          page = open('http://www.di.fm').read
+          app_start = page.scan(/di\.app\.start\((.*?)\);/).flatten[0]
+          json = JSON.parse(app_start)
+          json['channels'].each { |c| channels << {id: c['id'], name: c['key']} }
+
+          channels
         end
       end
     end

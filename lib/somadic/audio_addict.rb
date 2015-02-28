@@ -6,8 +6,8 @@ module Somadic
     end
 
     def refresh_playlist
-      f = open(@url)
-      page = f.read
+      page = open(@url).read
+      Somadic::Logger.debug("page=#{page}")
       data = JSON.parse(page[page.index("(") + 1..-3])
 
       symbolized_data = []
