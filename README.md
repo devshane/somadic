@@ -1,7 +1,7 @@
 # Somadic
 
 Somadic is a bare-bones terminal-based player for [somafm.com](http://somafm.com) and [di.fm](http://di.fm). 
-It uses `mplayer` to do the heavy lifting.
+It uses `mplayer` to do the heavy lifting. It's a hot Curses mess, but it works on my machine.
 
 ```
 $ somadic di:breaks
@@ -41,6 +41,7 @@ DI premium channels require an environment variable: DI_FM_PREMIUM_ID.
 #### Valid keys
 
 ```
+c       - List channels for `site`
 n       - Next site:channel in list
 N       - Pick a random channel from `site`
 q       - Quit

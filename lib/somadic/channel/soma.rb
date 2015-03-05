@@ -1,3 +1,4 @@
+# A wrapper around a soma.fm channel.
 module Somadic
   module Channel
     class Soma < Somadic::BaseChannel
@@ -10,14 +11,14 @@ module Somadic
       # Overrides BaseChannel
       def find_channel(name)
         Somadic::Logger.debug("Soma#find_channel(#{name})")
-        { id: 0, name: name }
+        { id: 0, name: name, display_name: name }
       end
 
       # Observer callback.
       def update(time, song)
         @song = song if song
         songs = refresh_playlist
-        channel = { id: 0, name: @options[:channel] }
+        channel = { id: 0, name: @options[:channel], display_name: @options[:channel] }
         @listeners.each do |l|
           l.update(channel, songs) if l.respond_to?(:update)
         end
@@ -30,16 +31,17 @@ module Somadic
         APICache.get('soma_fm_chanel_list', cache: ONE_DAY, timeout: API_TIMEOUT) do
           Somadic::Logger.debug('Soma#load_channels')
           channels = []
-          f = open('http://somafm.com/listen')
-          page = f.read
-          chans = page.scan(/\/play\/(.*?)"/).flatten
+          page = open('http://somafm.com/listen').read
+          chans = page.scan(/href="http:\/\/somafm.com\/(.*?)\.pls/).flatten
           chans.each do |c|
             unless c.start_with?('fw/') || c.gsub(/\d+$/, '') != c
-              channels << {id: 0, name: c}
+              channels << {id: 0, name: c, display_name: c}
             end
           end
           channels.sort_by! {|k, _| k[:name]}
           channels.uniq! {|k, _| k[:name]}
+
+          channels
         end
       end
 
@@ -62,10 +64,11 @@ module Somadic
           next if song[3].scan(/<a.*?>(.*?)<\/a>/).empty?
 
           d = {}
-          song[0] = song[0][0..song[0].index('&')-1]if song[0]['&'] # clean hh:mm:ss&nbsp; (Now)
+          song[0] = song[0][0..song[0].index('&')-1] if song[0]['&'] # clean hh:mm:ss&nbsp; (Now)
 
+          # TODO: ugh
           pt = Time.parse(song[0])
-          local = Chronic.parse(pt.to_s.gsub(/-\d+$/, '-0700'))
+          local = Chronic.parse(pt.to_s.gsub(/-\d+$/, '-0800'))
           d[:started] = local.to_i
 
           d[:votes] = {up: 0, down: 0}

@@ -49,5 +49,9 @@ module Somadic
     def find_channel(name)
       raise NotImplementedError
     end
+
+    def channel_list
+      @channels
+    end
   end
 end

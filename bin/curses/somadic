@@ -1,0 +1,180 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require 'somadic'
+require 'curses'
+require 'progress_bar'
+require 'thread'
+require 'chronic'
+require 'readline'
+require 'yaml'
+
+SOMADIC_PATH = ENV['HOME'] + '/.somadic'
+
+base_path = File.expand_path(File.dirname(__FILE__))
+Dir["#{base_path}/curses/lib/*.rb"].each do |file|
+  Somadic::Logger.debug("require #{file}")
+  require file
+end
+
+Signal.trap("INT") do |sig|
+  @channel.stop
+  exit
+end
+
+@display = Display.new
+@options = { cache: nil,
+             cache_min: nil,
+             listeners: [@display] }
+
+@optparser = OptionParser.new do |o|
+  o.banner = 'Usage: somadic [options] site:channel [site:channel]'
+  o.separator ''
+  o.separator 'The `site` parameter can be di or soma. `channel` should be'
+  o.separator 'a valid channel on that site.'
+  o.separator ''
+  o.separator 'DI premium channels require an environment variable: ' \
+              'DI_FM_PREMIUM_ID.'
+  o.separator ''
+
+  o.on('-c CACHE_SIZE', '--cache CACHE_SIZE', 'Set the cache size (KB)') do |c|
+    @options[:cache] = c
+  end
+  o.on('-m CACHE_MIN', '--cache-min CACHE_MIN',
+       'Set the minimum cache threshold (percent)') do |m|
+    @options[:cache_min] = m
+  end
+  o.on('-h', '--help', 'Display this message') { puts o; exit }
+
+  o.parse!
+end
+
+def usage
+  puts @optparser
+  puts
+  exit
+end
+
+def next_channel
+  @cur_chan ||= 0
+
+  rv = @channels[@cur_chan]
+  @cur_chan += 1
+  @cur_chan = 0 if @cur_chan == @channels.count
+  rv
+end
+
+def start_playing
+  who, what = next_channel.split(':')
+  @options[:channel] = what
+  @options[:premium_id] = ENV['DI_FM_PREMIUM_ID']
+  if who == 'di'
+    @channel = Somadic::Channel::DI.new(@options)
+  else
+    @channel = Somadic::Channel::Soma.new(@options)
+  end
+  @channel.start
+end
+
+def start(channels)
+  Somadic::Logger.debug("somadic-curses, started with #{channels}")
+
+  @channels = []
+  channels.each do |channel|
+    if channel[':']
+      @channels << channel
+    else
+      # is there a preset file?
+      fn = File.join(SOMADIC_PATH, 'presets', "#{channel}.yaml")
+      if File.exist?(fn)
+        YAML.load_file(fn).each { |c| @channels << c }
+      else
+        fail ArgumentError, "`#{channel}` is not a valid channel or preset."
+      end
+    end
+  end
+
+  start_playing
+
+  # keypresses are handled thru a Queue
+  keypresses = []
+  quitting = false
+  stopped = false
+  while !quitting
+    begin
+      keypresses << @display.kp_queue.pop(non_block: true)
+    rescue ThreadError => te
+      unless te.to_s == "queue empty"
+        Somadic::Logger.error("kp_queue.pop error: #{te}")
+      end
+    end
+    unless keypresses.empty?
+      keypresses.each do |kp|
+        case kp
+        when ' '
+          @channel.send(stopped ? :start : :stop)
+          stopped = !stopped
+        when 'c'
+          chanlist = @channel.channel_list
+          @display.show_channels(chanlist)
+        when 'n'
+          goto_next_channel
+        when 'N'
+          goto_next_channel_random
+        when 'q'
+          @channel.stop
+          quitting = true
+        when 'r'
+          @display.refresh
+        when 's'
+          search
+        when '/'
+          @display.search(@channel)
+          if @display.search_phrase
+            Somadic::Logger.debug("searching: #{@display.search_phrase}")
+            goto_channel(@display.search_phrase)
+          end
+        end
+        keypresses.delete(kp)
+      end
+    end
+
+    @display.stopped = stopped
+    @display.update
+    sleep 0.1
+  end
+end
+
+def goto_channel(channel)
+  @channel.stop
+  who, what = channel.split(':')
+  Somadic::Logger.debug("goto_channel: going to #{who}:#{what}")
+  @options[:channel] = what
+  if who == 'di'
+    @channel = Somadic::Channel::DI.new(@options)
+  else
+    @channel = Somadic::Channel::Soma.new(@options)
+  end
+  @channel.start
+end
+
+def goto_next_channel
+  goto_channel(next_channel)
+end
+
+def goto_next_channel_random
+  who = @channel.is_a?(Somadic::Channel::DI) ? 'di' : 'soma'
+  what = @channel.channels.reject { |c| c[:name] == @display.channel[:name] }.sample[:name]
+  goto_channel("#{who}:#{what}")
+end
+
+def search
+  Somadic::Logger.debug("searching for '#{@channel.song}'")
+  if OS.mac?
+    `open "https://www.google.com/search?safe=off&q=#{@channel.song}"`
+  elsif OS.linux?
+    `xdg-open "https://www.google.com/search?safe=off&q=#{@channel.song}"`
+  end
+end
+
+usage if ARGV[0].nil?
+start(ARGV)
