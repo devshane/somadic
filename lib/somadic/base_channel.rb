@@ -8,7 +8,14 @@ module Somadic
     def initialize(options)
       @url = options[:url]
       playlist = @url.split('/').last
-      name = playlist[0..playlist.index('.pls') - 1]
+      if playlist.end_with?('.pls')
+        name = playlist[0..playlist.index('.pls') - 1]
+      elsif playlist.end_with?('.m3u')
+        name = playlist[0..playlist.index('.m3u') - 1]
+      else
+        Somadic::Logger.error("BaseChannel#initialize: bad playlist #{playlist}")
+        return
+      end
       @channel = find_channel(name)
 
       @mp = Mplayer.new(options)

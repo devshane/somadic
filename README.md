@@ -1,7 +1,8 @@
 # Somadic
 
-Somadic is a bare-bones terminal-based player for [somafm.com](http://somafm.com) and [di.fm](http://di.fm). 
-It uses `mplayer` to do the heavy lifting. It's a hot Curses mess, but it works on my machine.
+Somadic is a bare-bones terminal-based player for [somafm.com](http://somafm.com), [di.fm](http://di.fm),
+and [SLAY Radio](http://www.slayradio.org). It uses `mplayer` to do the heavy lifting. It's also a hot 
+Curses mess, but it works on my machine.
 
 ```
 $ somadic di:breaks
@@ -28,8 +29,8 @@ Usage: somadic [options] [preset_name | [site1:channel1 ...]]
 
 You can specify either a `preset_name` or an arbitrary list of `site:channel` identifiers.
 
-  site: either `di` or `soma`
-  channel: a valid channel on `site`
+  site: `di`, `soma`, or `slayradio`
+  channel: a valid channel on `site`, or `slayradio` if site is slayradio
 
 DI premium channels require an environment variable: DI_FM_PREMIUM_ID.
 
@@ -62,6 +63,7 @@ a YAML file in `~/.somadic/presets`, say `chill.yaml`, with the following conten
 - soma:secretagent
 - di:psychill
 - soma:lush
+- slayradio:slayradio
 ```
 
 You can then start somadic with the preset's name:
