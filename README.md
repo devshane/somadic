@@ -4,6 +4,8 @@ Somadic is a bare-bones terminal-based player for [somafm.com](http://somafm.com
 and [SLAY Radio](http://www.slayradio.org). It uses `mplayer` to do the heavy lifting. It's also a hot 
 Curses mess, but it works on my machine.
 
+**DI.fm requires a Premium Account to stream with a third-party app.**
+
 ```
 $ somadic di:breaks
 
